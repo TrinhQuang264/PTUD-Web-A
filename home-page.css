@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+}
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: antiquewhite;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .logo {
+  margin-left: 20px;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.header .manager {
+  margin-left: 20px;
+}
+.navbar ul li {
+  display: inline-block;
+  list-style: none;
+  margin-right: 20px;
+}
+.navbar li a {
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  color: rgb(85, 26, 139);
+}
+.navbar a {
+  position: relative;
+  text-decoration: none; /* Xóa gạch chân mặc định */
+}
+
+.navbar a::after {
+  content: "";
+  width: 0;
+  height: 3px;
+  background-color: orange;
+  position: absolute;
+  top: 23px;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease;
+}
+.navbar a:hover {
+  color: orange;
+}
+.navbar a:hover::after {
+  width: 100%;
+}

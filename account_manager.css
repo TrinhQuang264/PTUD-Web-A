@@ -1,0 +1,166 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/*Phần Nav bar*/
+.header {
+  position: sticky;
+  background-color: lightblue;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+ul,
+li,
+.logout {
+  list-style: none;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+}
+
+.navbar ul li {
+  display: inline-block;
+  padding-left: 20px;
+}
+
+.logout {
+  margin-right: 20px;
+}
+
+/*Phần aside tính năng*/
+aside {
+  background-color: aquamarine;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 180px;
+  height: 100%;
+}
+
+aside p {
+  text-align: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+p:nth-child(1) {
+  margin-top: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid #0056b3;
+}
+
+p:nth-child(2) {
+  font-weight: bold;
+  margin: 0;
+}
+
+p:nth-child(3) {
+  margin: 0;
+  font-size: 14px;
+}
+
+/*Phần Hiện thị Thông Tin*/
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-left: 180px;
+}
+
+main h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/*Chỉnh Table */
+table,
+td,
+th {
+  border: 3px solid black;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #00c9ff;
+}
+
+td,
+th {
+  text-align: center;
+  padding: 4px;
+  font-size: 20px;
+}
+
+svg {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+/*Thông báo không có quyền hạn truy cập*/
+.card--nou {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
+}
+
+.nou-no-admin {
+  text-align: center;
+  background-color: rgb(255, 243, 205);
+  max-width: 600px;
+  width: 90%;
+  border-radius: 7px;
+}
+
+.nou-no-admin h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: RED;
+}
+
+.nou-no-admin p {
+  margin-bottom: 0px;
+}
+
+.back-to-login-button {
+  margin-top: 0px;
+  margin-bottom: 30px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: rgb(0, 123, 255);
+  border: none;
+  border-radius: 5px;
+}
+
+.back-to-login-button:hover {
+  background-color: #0056b3;
+}
+
+.back-to-login-button a {
+  color: white;
+  text-decoration: none;
+}
