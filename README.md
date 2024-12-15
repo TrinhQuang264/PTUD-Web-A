@@ -20,3 +20,6 @@ link github: https://github.com/TrinhQuang264/PTUD-Web-A - Đổi sang branch ma
     -----tìm kiếm của danh sách khóa học chưa đc
 
 - đăng nhập / đăng ký / đăng xuất / phân quyền ( admin và user)
+
+- ảnh thiết kế cơ sở dữ liệu: 
+![anhcsdl](https://github.com/user-attachments/assets/2b2e8b35-18f9-43de-b99a-258bdf692ca1)
