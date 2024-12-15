@@ -49,19 +49,21 @@
 </style>
 
 <body>
+  <!-- Phần header -->
   <header class="header">
-    <div class="logo"><a href="home_page.php">COURSE</a></div>
+    <div class="logo"><a href="index.php">COURSE</a></div>
   </header>
+  <!-- Phần Form -->
   <div class="container">
     <form action="" method="post" class="login-box">
       <h2>Đăng Nhập</h2>
       <p>Email:</p>
-      <input type="email" name="email" placeholder="Nhập Email" />
+      <input type="email" name="email" placeholder="Nhập Email" required />
       <p>Mật Khẩu:</p>
       <input
         type="password"
         name="password"
-        placeholder="Nhập Mật Khẩu" /><br />
+        placeholder="Nhập Mật Khẩu" required /><br />
       <input type="submit" value="Đăng Nhập" class="submit-button" />
 
       <p class="question-register">
@@ -81,19 +83,20 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
   $sql = "SELECT email, password, last_name, first_name,role_id FROM account Where email = '$email' ";
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();
+  //check xem nhập hay chưa hay bỏ trống hoặc nhập sai
   if ($result->num_rows == 0) {
     echo "<p class='nou'>Vui Lòng Nhập Đầy Đủ Thông Tin!</p>";
     exit;
   } else if ($email != $row["email"] || $password != $row["password"]) {
     echo "<p class='nou'>Tài Khoản hoặc Mật Khẩu bị sai!</p>";
     exit;
-  } else { // lưu thông tin khi check email và mk đúng
+  } else {
+    // lưu thông tin khi check email và mk đúng
     $_SESSION['email'] = $row['email'];
     $_SESSION['last_name'] = $row['last_name'];
     $_SESSION['first_name'] = $row['first_name'];
     $_SESSION['role_id'] = $row['role_id'];
-    // tạm để thế này để test role đăng nhập ==================================================================
-    header("location: home_page.php");
+    header("location: index.php");
   }
 } ?>
 

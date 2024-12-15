@@ -17,7 +17,7 @@
         <header class="header">
             <nav class="navbar">
                 <ul>
-                    <li class="homepage"><a href="home_page.php">Trang Chủ</a></li>
+                    <li class="homepage"><a href="index.php">Trang Chủ</a></li>
                     <li class="find"><a href="account_manager.php">Quản Lý Tài Khoản</a></li>
                 </ul>
             </nav>
@@ -39,31 +39,31 @@
             <div class="container">
                 <form action="" method="GET">
                     <h2>Tìm Kiếm</h2>
-                    <p>ID</p>
+                    <!-- <p>ID</p>
                     <input type="number" name="account_id" placeholder="Tìm Kiếm Theo ID"><br>
                     <p>Họ và Họ Đệm:</p>
-                    <input type="text" name="last_name" placeholder="Tìm Kiếm Theo Họ và Họ Đệm"><br>
+                    <input type="text" name="last_name" placeholder="Tìm Kiếm Theo Họ và Họ Đệm"><br>-->
                     <p>Tên:</p>
                     <input type="text" name="first_name" placeholder="Tìm Kiếm Theo Tên"><br>
-                    <p>Email:</p>
-                    <input type="email" name="email" placeholder="Tìm Kiếm Theo Email"><br>
-                    <p>Quyền:</p>
+                    <!-- <p>Email:</p>
+                    <input type="email" name="email" placeholder="Tìm Kiếm Theo Email"><br> -->
+                    <!-- <p>Quyền:</p>
                     <select name="role_id" value="<?php echo $row["role_id"]; ?>"><br>
-                        <?php
-                        require 'connect.php';
-                        $sql = "SELECT * FROM role";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            for ($i = 0; $i < $result->num_rows; $i++) {
-                                $row = $result->fetch_assoc();
-                                $role_id = $row["role_id"];
-                                $role_name = $row["role_name"];
-                                echo "<option value='$role_id'>" . $row["role_name"] . "</option>";
-                            }
-                        }
-                        $conn->close();
-                        ?>
-                    </select><br>
+                         <?php
+                            // require 'connect.php';
+                            // $sql = "SELECT * FROM role";
+                            // $result = $conn->query($sql);
+                            // if ($result->num_rows > 0) {
+                            //     for ($i = 0; $i < $result->num_rows; $i++) {
+                            //         $row = $result->fetch_assoc();
+                            //         $role_id = $row["role_id"];
+                            //         $role_name = $row["role_name"];
+                            //         echo "<option value='$role_id'>" . $row["role_name"] . "</option>";
+                            //     }
+                            // }
+                            // $conn->close();
+                            ?> 
+                    </select><br> -->
                     <input type="submit" value="Tìm Kiếm" class="submit-button" name="submit"><br>
                 </form>
             </div>
@@ -78,7 +78,7 @@
                 $role_id = isset($_GET['role_id']);
                 $sql = "SELECT a.account_id,a.last_name,a.first_name,a.email,a.password,r.role_name
                     FROM account a
-                    INNER JOIN role r On  a.role_id = r.role_id  WHERE 1=1";
+                    INNER JOIN role r On  a.role_id = r.role_id Where first_name ='$first_name'";
 
 
                 $result = $conn->query($sql);

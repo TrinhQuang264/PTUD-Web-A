@@ -73,23 +73,31 @@
 
 <body>
     <header class="header">
-        <div class="logo"><a href="home_page.php">COURSE</a></div>
+        <div class="logo"><a href="index.php">COURSE</a></div>
         <?php
         session_start();
         if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
             echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
             echo "<nav class='navbar'>
-                <ul>
-                  <li><a href='logout.php'>Đăng Xuất</a></li>
-                </ul>
-              </nav>";
-        } else {
+                      <ul>
+                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                      </ul>
+                    </nav>";
+        } else if (isset($_SESSION['email'])) {
+            echo "<div class='manager'> Vài trò: Người Dùng</div>";
             echo "<nav class='navbar'>
-              <ul>
-                <li><a href='login.php'>Đăng Nhập</a></li>
-                <li><a href='resgister.php'>Đăng Ký</a></li>
-              </ul>
-            </nav>";
+                      <ul>
+                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                      </ul>
+                    </nav>";
+        } else {
+
+            echo "<nav class='navbar'>
+                    <ul>
+                      <li><a href='login.php'>Đăng Nhập</a></li>
+                      <li><a href='resgister.php'>Đăng Ký</a></li>
+                    </ul>
+                  </nav>";
         }
         ?>
     </header>

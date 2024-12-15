@@ -14,6 +14,7 @@
     href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet" />
 </head>
+
 <style>
   .header {
     position: sticky;
@@ -49,9 +50,11 @@
 </style>
 
 <body>
+  <!-- phần header -->
   <header class="header">
-    <div class="logo"><a href="home_page.php">COURSE</a></div>
+    <div class="logo"><a href="index.php">COURSE</a></div>
   </header>
+  <!-- form đăng ký -->
   <div class="container">
     <form action="" method="POST" class="login-box">
       <h2>Đăng Ký</h2>
@@ -59,16 +62,16 @@
       <input
         type="text"
         name="last_name"
-        placeholder="Đăng Ký Họ và Họ Đệm " />
+        placeholder="Đăng Ký Họ và Họ Đệm " id='last_name' required />
       <p>Tên:</p>
-      <input type="text" name="first_name" placeholder="Đăng Ký Tên " /><br />
+      <input type="text" name="first_name" placeholder="Đăng Ký Tên " id='first_name' required /><br />
       <p>Email:</p>
-      <input type="email" name="email" placeholder="Đăng Ký Email " /><br />
+      <input type="email" name="email" placeholder="Đăng Ký Email " id='email' required /><br />
       <p>Mật khẩu:</p>
       <input
         type="password"
         name="password"
-        placeholder="Đăng Ký Mật Khẩu " /><br />
+        placeholder="Đăng Ký Mật Khẩu " id='password' required /><br />
       <input type="submit" value="Đăng Ký" class="submit-button" />
 
       <p class="question-login">
@@ -77,6 +80,9 @@
     </form>
   </div>
   <?php
+
+
+
   if (isset($_POST["last_name"]) != "" && isset($_POST["first_name"]) != "" && isset($_POST["email"]) != "" && isset($_POST["password"]) != "") {
     require 'connect.php';
     $last_name = $_POST["last_name"];
@@ -86,10 +92,8 @@
 
     $sql = "INSERT INTO account(email,password,first_name,last_name,role_id)
             VALUE ('$email','$password','$first_name','$last_name','user')";
-
     //check xem đã nhập thông tin và ok hay chưa
     if ($conn->query($sql) === True) {
-      header("location: login.php");
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }

@@ -78,6 +78,8 @@
 
   main .title {
     text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
   }
 
   .list_courses {
@@ -95,17 +97,29 @@
 
   .list_courses .grid_item {
     width: 260px;
-    border: 1px solid black;
     border-radius: 5px;
-    padding: 3px;
+    padding: 5px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  .list_courses .grid_item-price {
+    color: red;
+    font-weight: 500;
+  }
+
+  .list_courses p,
+  h3 {
+    margin-left: 10px;
   }
 </style>
 
 <body>
+  <!-- Thanh Header và Nav-->
   <header class="header">
-    <div class="logo"><a href="home_page.php">COURSE</a></div>
+    <div class="logo"><a href="index.php">COURSE</a></div>
     <?php
     session_start();
+    // Phần Quyền Hiện Thị Phần Header
     if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
       echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
       echo "<nav class='navbar'>
@@ -114,12 +128,14 @@
                 </ul>
               </nav>";
     } else if (isset($_SESSION['email'])) {
+      echo "<div class='manager'> Vài trò: Người Dùng</div>";
       echo "<nav class='navbar'>
                 <ul>
                   <li><a href='logout.php'>Đăng Xuất</a></li>
                 </ul>
               </nav>";
     } else {
+
       echo "<nav class='navbar'>
               <ul>
                 <li><a href='login.php'>Đăng Nhập</a></li>
@@ -130,6 +146,7 @@
     ?>
   </header>
   <?php
+  // Phần Quyền Hiện Thị Phần Navbar
   if (isset($_SESSION['email'])) {
   ?>
     <aside>
@@ -164,6 +181,7 @@
       }
     ?>
     </aside>
+    <!--Phần Body hiện thị tự động khóa học từ csdl courses -->
     <main>
       <div class="title">
         <h2>Các Khóa Học Chúng Tôi:</h2>
@@ -182,10 +200,10 @@
             for ($i = 0; $i < $result->num_rows; $i++) {
               $row = $result->fetch_assoc();
               echo "<div class='grid_item'>";
-              echo "<h3>" . $row["course_name"] . " - " . $row["difficulty_name"] . "</h3>";
-              echo "<p>" . $row["fee"] . " VND" . "</p>";
-              echo "<p> Số Lượng: " . $row["lesson_count"] . " Bài ~ " . $row["duration"] . "</p>";
-              echo "<p>Ngày Bắt Đầu Học: " . $row["start_date"] . "</p>";
+              echo "<h3 class='grid_item-name'>" . $row["course_name"] . " - " . $row["difficulty_name"] . "</h3>";
+              echo "<p class='grid_item-price'>" . $row["fee"] . "<span> VND</span>" . "</p>";
+              echo "<p class='grid_item-amount'> <b>Số Lượng:</b> " . $row["lesson_count"] . " Bài ~ " . trim($row["duration"]) . " Tháng" . "</p>";
+              echo "<p class='grid_item-date'><b>Ngày Bắt Đầu Học: </b>" . $row["start_date"] . "</p>";
               echo "</div>";
             }
           }

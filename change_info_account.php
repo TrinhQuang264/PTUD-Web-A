@@ -171,7 +171,7 @@
         <header class="header">
             <nav class="navbar">
                 <ul>
-                    <li class="homepage"><a href="home_page.php">Trang Chủ</a></li>
+                    <li class="homepage"><a href="index.php">Trang Chủ</a></li>
                     <li class="find"><a href="find_account.php">Tìm Kiếm</a></li>
                 </ul>
             </nav>

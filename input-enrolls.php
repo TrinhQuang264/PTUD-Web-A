@@ -73,23 +73,31 @@
 
 <body>
     <header class="header">
-        <div class="logo"><a href="home_page.php">COURSE</a></div>
+        <div class="logo"><a href="index.php">COURSE</a></div>
         <?php
         session_start();
         if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
             echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
             echo "<nav class='navbar'>
-                <ul>
-                  <li><a href='logout.php'>Đăng Xuất</a></li>
-                </ul>
-              </nav>";
-        } else {
+                      <ul>
+                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                      </ul>
+                    </nav>";
+        } else if (isset($_SESSION['email'])) {
+            echo "<div class='manager'> Vài trò: Người Dùng</div>";
             echo "<nav class='navbar'>
-              <ul>
-                <li><a href='login.php'>Đăng Nhập</a></li>
-                <li><a href='resgister.php'>Đăng Ký</a></li>
-              </ul>
-            </nav>";
+                      <ul>
+                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                      </ul>
+                    </nav>";
+        } else {
+
+            echo "<nav class='navbar'>
+                    <ul>
+                      <li><a href='login.php'>Đăng Nhập</a></li>
+                      <li><a href='resgister.php'>Đăng Ký</a></li>
+                    </ul>
+                  </nav>";
         }
         ?>
     </header>
@@ -128,14 +136,15 @@
             }
         ?>
         </aside>
+
         <form action="" method="post">
             <h2>Đăng Kí Khóa học</h2>
             <p>Họ và Tên:</p>
-            <input type="text" name="enroll_name">
+            <input type="text" name="enroll_name" value="<?php echo $_SESSION['last_name'] . " " . $_SESSION['first_name']; ?>" required>
             <p>Email:</p>
-            <input type="email" name="enroll_email">
+            <input type="email" name="enroll_email" value="<?php echo $_SESSION['email']; ?>">
             <p>Số Điện Thoại: </p>
-            <input type="text" name="enroll_phone" id="">
+            <input type="text" name="enroll_phone" id="" required>
             <p>Tên Khóa học:</p>
             <select name="course_id">
                 <?php

@@ -8,11 +8,12 @@
 </head>
 
 <body>
+    <!-- Hủy session để thực hiện đăng xuất -->
     <?php
     session_start();
-    // xóa session id
+    // xóa session
     session_unset();
-    header("location: home_page.php");
+    header("location: index.php");
     ?>
 
 </body>

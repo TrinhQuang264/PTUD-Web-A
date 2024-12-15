@@ -73,23 +73,31 @@
 
 <body>
     <header class="header">
-        <div class="logo"><a href="home_page.php">COURSE</a></div>
+        <div class="logo"><a href="index.php">COURSE</a></div>
         <?php
         session_start();
         if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
             echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
             echo "<nav class='navbar'>
-                <ul>
-                  <li><a href='logout.php'>Đăng Xuất</a></li>
-                </ul>
-              </nav>";
-        } else {
+                      <ul>
+                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                      </ul>
+                    </nav>";
+        } else if (isset($_SESSION['email'])) {
+            echo "<div class='manager'> Vài trò: Người Dùng</div>";
             echo "<nav class='navbar'>
-              <ul>
-                <li><a href='login.php'>Đăng Nhập</a></li>
-                <li><a href='resgister.php'>Đăng Ký</a></li>
-              </ul>
-            </nav>";
+                      <ul>
+                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                      </ul>
+                    </nav>";
+        } else {
+
+            echo "<nav class='navbar'>
+                    <ul>
+                      <li><a href='login.php'>Đăng Nhập</a></li>
+                      <li><a href='resgister.php'>Đăng Ký</a></li>
+                    </ul>
+                  </nav>";
         }
         ?>
     </header>
@@ -130,9 +138,9 @@
         </aside>
         <form action="">
             <p>Mã Khóa Học:</p>
-            <input type="text" name="course_id">
+            <input type="text" name="course_id" required>
             <p>Tên Khóa Học:</p>
-            <input type="text" name="course_name">
+            <input type="text" name="course_name" required>
             <p>Phân Loại:</p>
             <select name="difficulty_id">
                 <?php
@@ -151,13 +159,13 @@
                 ?>
             </select>
             <p>Số Bài Học:</p>
-            <input type="number" name="lesson_count">
+            <input type="number" name="lesson_count" required>
             <p>Thời Gian Học:</p>
-            <input type="text" name="duration" id="">
+            <input type="text" name="duration" id="" required>
             <p>Học Phí:</p>
-            <input type="text" name="fee">
+            <input type="text" name="fee" required>
             <p>Ngày Bắt Đầu:</p>
-            <input type="text" name="start_date">
+            <input type="text" name="start_date" required>
             <input type="submit" value="Gửi">
             </select>
         </form>
