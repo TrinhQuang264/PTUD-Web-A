@@ -23,3 +23,6 @@ link github: https://github.com/TrinhQuang264/PTUD-Web-A - Đổi sang branch ma
 
 - ảnh thiết kế cơ sở dữ liệu: 
 ![anhcsdl](https://github.com/user-attachments/assets/2b2e8b35-18f9-43de-b99a-258bdf692ca1)
+
+
+- nếu những thứ trên chưa đủ hay đúng yêu cầu của thầy thì em mong thầy góp ý cho em . em cảm ơn ạ
