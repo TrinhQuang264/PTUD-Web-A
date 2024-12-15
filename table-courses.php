@@ -135,7 +135,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Tên Khóa Học</th>
-                        <th>Độ Khó</th>
+                        <th>Phân Loại</th>
                         <th>Bài Học</th>
                         <th>Thời Gian Học</th>
                         <th>Học Phí</th>

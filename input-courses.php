@@ -133,7 +133,7 @@
             <input type="text" name="course_id">
             <p>Tên Khóa Học:</p>
             <input type="text" name="course_name">
-            <p>Độ Khó:</p>
+            <p>Phân Loại:</p>
             <select name="difficulty_id">
                 <?php
                 require 'connect.php';

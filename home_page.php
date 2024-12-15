@@ -69,6 +69,36 @@
   .submenu li {
     margin-bottom: 5px;
   }
+
+  main {
+    height: auto;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  main .title {
+    text-align: center;
+  }
+
+  .list_courses {
+    margin-left: 10px;
+    margin-right: 10px;
+    height: auto;
+  }
+
+  .list_courses .template_course {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-left: 60px;
+    row-gap: 30px;
+  }
+
+  .list_courses .grid_item {
+    width: 260px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px;
+  }
 </style>
 
 <body>
@@ -135,10 +165,34 @@
     ?>
     </aside>
     <main>
+      <div class="title">
+        <h2>Các Khóa Học Chúng Tôi:</h2>
+      </div>
+      <div class="list_courses">
+        <div class="template_course">
+          <?php
+          require 'connect.php';
+          $sql = "SELECT course_id,course_name,d.difficulty_name,lesson_count,duration,fee, start_date         
+                        FROM  courses c
+                        INNER JOIN  difficult d On  c.difficulty_id = d.difficulty_id;";
 
-      Đề tài: Quản lý trung tâm đào tạo Lập trình <br />
-      Mô tả: Hệ thống quản lý trung tâm đào tạo giúp theo dõi thông tin về khóa
-      học, giảng viên và học viên.
+          $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+            for ($i = 0; $i < $result->num_rows; $i++) {
+              $row = $result->fetch_assoc();
+              echo "<div class='grid_item'>";
+              echo "<h3>" . $row["course_name"] . " - " . $row["difficulty_name"] . "</h3>";
+              echo "<p>" . $row["fee"] . " VND" . "</p>";
+              echo "<p> Số Lượng: " . $row["lesson_count"] . " Bài ~ " . $row["duration"] . "</p>";
+              echo "<p>Ngày Bắt Đầu Học: " . $row["start_date"] . "</p>";
+              echo "</div>";
+            }
+          }
+          ?>
+        </div>
+      </div>
+
     </main>
 </body>
 

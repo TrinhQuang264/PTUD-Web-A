@@ -141,7 +141,7 @@
             <input type="text" name="course_id" value="<?php echo $course_id; ?> " readonly>
             <p>Tên Khóa Học:</p>
             <input type="text" name="course_name" value="<?php echo $row["course_name"]; ?>">
-            <p>Độ Khó:</p>
+            <p>Phân loại</p>
             <select name="difficulty_id" value="<?php echo $row["difficulty_id"]; ?>">
                 <?php
                 require 'connect.php';
