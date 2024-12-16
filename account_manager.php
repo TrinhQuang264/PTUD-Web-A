@@ -12,13 +12,13 @@
 <body>
     <?php
     session_start();
-    if ($_SESSION['email'] && $_SESSION['role_id'] === 'admin') {
+    if (isset($_SESSION['email']) && $_SESSION['role_id'] === 'admin') {
     ?>
         <header class="header">
             <nav class="navbar">
                 <ul>
                     <li class="homepage"><a href="index.php">Trang Chủ</a></li>
-                    <li class="find"><a href="find_account.php">Tìm Kiếm(Lỗi)</a></li>
+                    <li class="find"><a href="find_account.php">Tìm Kiếm</a></li>
                 </ul>
             </nav>
             <div class="logout">
@@ -99,7 +99,7 @@
             <div class="nou-no-admin">
                 <h2 id=>Không có quyền truy cập</h2>
                 <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
-                <button class="back-to-login-button"><a href="login.php">Quay lại trang đăng nhập</a></button>
+                <button class="back-to-login-button"><a href="index.php">Quay lại trang chủ</a></button>
             </div>
         </div>
     <?php

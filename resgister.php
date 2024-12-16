@@ -94,6 +94,9 @@
             VALUE ('$email','$password','$first_name','$last_name','user')";
     //check xem đã nhập thông tin và ok hay chưa
     if ($conn->query($sql) === True) {
+      echo "<script>
+              alert('Bạn đã đăng ký thành công');
+            </script>";
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }

@@ -72,103 +72,97 @@
 </style>
 
 <body>
-    <header class="header">
-        <div class="logo"><a href="index.php">COURSE</a></div>
-        <?php
-        session_start();
-        if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
-            echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
-            echo "<nav class='navbar'>
-                      <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
-                      </ul>
-                    </nav>";
-        } else if (isset($_SESSION['email'])) {
-            echo "<div class='manager'> Vài trò: Người Dùng</div>";
-            echo "<nav class='navbar'>
-                      <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
-                      </ul>
-                    </nav>";
-        } else {
 
-            echo "<nav class='navbar'>
-                    <ul>
-                      <li><a href='login.php'>Đăng Nhập</a></li>
-                      <li><a href='resgister.php'>Đăng Ký</a></li>
-                    </ul>
-                  </nav>";
-        }
-        ?>
-    </header>
     <?php
-    if (isset($_SESSION['email'])) {
+    session_start();
+    if (isset($_SESSION['email']) && $_SESSION['role_id'] != 'admin') {
     ?>
-        <aside>
-            <ul class="main-menu">
-                <li>
-                    Đăng Ký Khóa Học
-                    <ul class="submenu">
-                        <li><a href="input-enrolls.php">Đăng Ký </a></li>
-                        <li><a href="table-enrolls.php">Danh Sách </a></li>
-                        <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
-                    </ul>
-                </li>
-            <?php
-        }
-            ?>
-            <?php
-            if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
-            ?>
-                <li>
-                    Khóa học
-                    <ul class="submenu">
-                        <li><a href="input-courses.php">Tạo Khóa Học</a></li>
-                        <li><a href="table-courses.php">Danh Sách</a></li>
-                        <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
-                    </ul>
-                </li>
-                <li>
-                    <a href="account_manager.php">Quản Lý Tài Khoản</a>
-                </li>
-            </ul>
+        <div class="card--nou">
+            <div class="nou-no-admin">
+                <h2>Không có quyền truy cập</h2>
+                <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
+                <button class="back-to-login-button"><a href="index.php">Quay lại trang chủ</a></button>
+            </div>
+        </div>
+    <?php
+    }
+
+    if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
+    ?>
+        <header class="header">
+            <div class="logo"><a href="index.php">COURSE</a></div>
         <?php
-            }
+        echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
+        echo "<nav class='navbar'>
+                      <ul>
+                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                      </ul>
+                    </nav>";
+    }
         ?>
-        </aside>
-        <form action="">
-            <p>Mã Khóa Học:</p>
-            <input type="text" name="course_id" required>
-            <p>Tên Khóa Học:</p>
-            <input type="text" name="course_name" required>
-            <p>Phân Loại:</p>
-            <select name="difficulty_id">
-                <?php
-                require 'connect.php';
-                $sql = "SELECT * FROM difficult";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    for ($i = 0; $i < $result->num_rows; $i++) {
-                        $row = $result->fetch_assoc();
-                        $difficulty_id = $row["difficulty_id"];
-                        $difficulty_name = $row["difficulty_name"];
-                        echo "<option value='$difficulty_id'>" . $row["difficulty_name"] . "</option>";
+        </header>
+        <?php
+        if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
+        ?><aside>
+                <ul class="main-menu">
+                    <li>
+                        Đăng Ký Khóa Học
+                        <ul class="submenu">
+                            <li><a href="input-enrolls.php">Đăng Ký </a></li>
+                            <li><a href="table-enrolls.php">Danh Sách </a></li>
+                            <li><a href="find-enroll.php">Tìm Kiếm </a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        Khóa học
+                        <ul class="submenu">
+                            <li><a href="input-courses.php">Tạo Khóa Học</a></li>
+                            <li><a href="table-courses.php">Danh Sách</a></li>
+                            <li><a href="find-courses.php">Tìm Kiếm </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="account_manager.php">Quản Lý Tài Khoản</a>
+                    </li>
+                </ul>
+            </aside>
+            <form action="">
+                <p>Mã Khóa Học:</p>
+                <input type="text" name="course_id" required>
+                <p>Tên Khóa Học:</p>
+                <input type="text" name="course_name" required>
+                <p>Phân Loại:</p>
+                <select name="difficulty_id">
+                    <?php
+                    require 'connect.php';
+                    $sql = "SELECT * FROM difficult";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        for ($i = 0; $i < $result->num_rows; $i++) {
+                            $row = $result->fetch_assoc();
+                            $difficulty_id = $row["difficulty_id"];
+                            $difficulty_name = $row["difficulty_name"];
+                            echo "<option value='$difficulty_id'>" . $row["difficulty_name"] . "</option>";
+                        }
                     }
-                }
-                $conn->close();
-                ?>
-            </select>
-            <p>Số Bài Học:</p>
-            <input type="number" name="lesson_count" required>
-            <p>Thời Gian Học:</p>
-            <input type="text" name="duration" id="" required>
-            <p>Học Phí:</p>
-            <input type="text" name="fee" required>
-            <p>Ngày Bắt Đầu:</p>
-            <input type="text" name="start_date" required>
-            <input type="submit" value="Gửi">
-            </select>
-        </form>
+                    $conn->close();
+                    ?>
+                </select>
+                <p>Số Bài Học:</p>
+                <input type="number" name="lesson_count" required>
+                <p>Thời Gian Học:</p>
+                <input type="text" name="duration" id="" required>
+                <p>Học Phí:</p>
+                <input type="text" name="fee" required>
+                <p>Ngày Bắt Đầu:</p>
+                <input type="text" name="start_date" required>
+                <input type="submit" value="Gửi">
+                </select>
+            </form>
+        <?php
+        }
+        ?>
 </body>
 
 </html>
@@ -183,16 +177,23 @@ if (isset($_GET["course_id"]) && isset($_GET["course_name"]) && isset($_GET["dif
     $fee = $_GET["fee"];
     $start_date = $_GET["start_date"];
 
-    $sql = "INSERT INTO courses(course_id,course_name,difficulty_id,lesson_count,duration,fee,start_date)
+    $check_sql = "SELECT * FROM courses WHERE course_id = '$course_id' AND course_name = '$course_name'";
+    $check_result = $conn->query($check_sql);
+    if ($check_result->num_rows > 0) {
+        // Nếu đã tồn tại
+        echo "<script>alert('Bạn đã tạo khóa học này rồi!');</script>";
+    } else {
+        $sql = "INSERT INTO courses(course_id,course_name,difficulty_id,lesson_count,duration,fee,start_date)
             VALUE ('$course_id','$course_name','$difficulty_id','$lesson_count','$duration','$fee','$start_date')";
 
-    //check xem đã nhập thông tin và ok hay chưa
-    if ($conn->query($sql) === True) {
-        echo "đã thêm thành công";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        //check xem đã nhập thông tin và ok hay chưa
+        if ($conn->query($sql) === True) {
+            echo "<script>alert('Tạo khóa học thành công!');</script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+        $conn->close();
     }
-    $conn->close();
 }
 
 ?>

@@ -12,7 +12,20 @@
 <body>
     <?php
     session_start();
-    if ($_SESSION['email'] && $_SESSION['role_id'] === 'admin') {
+
+    if (!isset($_SESSION['email']) || $_SESSION['role_id'] != 'admin') {
+    ?>
+        <div class="card--nou">
+            <div class="nou-no-admin">
+                <h2 id=>Không có quyền truy cập</h2>
+                <p style="color:rgb(175,  136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
+                <button class="back-to-login-button"><a href="index.php">Quay lại trang chủ</a></button>
+            </div>
+        </div>
+
+    <?php
+    }
+    if (isset($_SESSION['email']) && $_SESSION['role_id'] === 'admin') {
     ?>
         <header class="header">
             <nav class="navbar">
@@ -35,6 +48,19 @@
                 <p>(Quản Trị Viên)</p>
             </div>
         </aside>
+        <?php
+        if (isset($_SESSION['email']) && $_SESSION['role_id'] != 'admin') {
+        ?>
+            <div class="card--nou">
+                <div class="nou-no-admin">
+                    <h2 id=>Không có quyền truy cập</h2>
+                    <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
+                    <button class="back-to-login-button"><a href="login.php">Quay lại trang đăng nhập</a></button>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
         <main>
             <div class="container">
                 <form action="" method="GET">
@@ -43,47 +69,48 @@
                     <input type="number" name="account_id" placeholder="Tìm Kiếm Theo ID"><br>
                     <p>Họ và Họ Đệm:</p>
                     <input type="text" name="last_name" placeholder="Tìm Kiếm Theo Họ và Họ Đệm"><br>-->
-                    <p>Tên:</p>
-                    <input type="text" name="first_name" placeholder="Tìm Kiếm Theo Tên"><br>
+                    <!-- <p>Tên:</p>
+                    <input type="text" name="first_name" placeholder="Tìm Kiếm Theo Tên"><br> -->
                     <!-- <p>Email:</p>
                     <input type="email" name="email" placeholder="Tìm Kiếm Theo Email"><br> -->
-                    <!-- <p>Quyền:</p>
+                    <p>Quyền:</p>
                     <select name="role_id" value="<?php echo $row["role_id"]; ?>"><br>
-                         <?php
-                            // require 'connect.php';
-                            // $sql = "SELECT * FROM role";
-                            // $result = $conn->query($sql);
-                            // if ($result->num_rows > 0) {
-                            //     for ($i = 0; $i < $result->num_rows; $i++) {
-                            //         $row = $result->fetch_assoc();
-                            //         $role_id = $row["role_id"];
-                            //         $role_name = $row["role_name"];
-                            //         echo "<option value='$role_id'>" . $row["role_name"] . "</option>";
-                            //     }
-                            // }
-                            // $conn->close();
-                            ?> 
-                    </select><br> -->
+                        <?php
+                        require 'connect.php';
+                        $sql = "SELECT * FROM role";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            for ($i = 0; $i < $result->num_rows; $i++) {
+                                $row = $result->fetch_assoc();
+                                $role_id = $row["role_id"];
+                                $role_name = $row["role_name"];
+                                echo "<option value='$role_id'>" . $row["role_name"] . "</option>";
+                            }
+                        }
+                        $conn->close();
+                        ?>
+                    </select><br>
                     <input type="submit" value="Tìm Kiếm" class="submit-button" name="submit"><br>
                 </form>
             </div>
             <?php
-            if (isset($_GET["submit"])) {
+            if (isset($_GET["role_id"])) {
                 require 'connect.php';
                 mysqli_set_charset($conn, 'UTF8');
-                $account_id = isset($_GET['account_id']);
-                $last_name = isset($_GET['last_name']);
-                $first_name = isset($_GET['first_name']);
-                $email = isset($_GET['email']);
-                $role_id = isset($_GET['role_id']);
+                // $account_id = $_GET['account_id'];
+                // $last_name = $_GET['last_name'];
+                // $first_name = $_GET['first_name'];
+                // $email = $_GET['email'];
+                $role_id = $_GET['role_id'];
+
                 $sql = "SELECT a.account_id,a.last_name,a.first_name,a.email,a.password,r.role_name
-                    FROM account a
-                    INNER JOIN role r On  a.role_id = r.role_id Where first_name ='$first_name'";
+                        FROM account a
+                        INNER JOIN role r On  a.role_id = r.role_id Where a.role_id ='$role_id'";
 
 
                 $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
+                if ($result != false && $result->num_rows > 0) {
                     echo "<div class='show-find-table'>";
                     echo "<table>
                         <p> Bảng thông tin </p>
@@ -111,8 +138,6 @@
 
                 $conn->close();
             ?>
-
-
         <?php
             }
         }

@@ -111,7 +111,7 @@
                     <ul class="submenu">
                         <li><a href="input-enrolls.php">Đăng Ký </a></li>
                         <li><a href="table-enrolls.php">Danh Sách </a></li>
-                        <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
+                        <li><a href="find-enroll.php">Tìm Kiếm </a></li>
                     </ul>
                 </li>
             <?php
@@ -125,7 +125,7 @@
                     <ul class="submenu">
                         <li><a href="input-courses.php">Tạo Khóa Học</a></li>
                         <li><a href="table-courses.php">Danh Sách</a></li>
-                        <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
+                        <li><a href="find-courses.php">Tìm Kiếm </a></li>
                     </ul>
                 </li>
                 <li>
@@ -136,7 +136,6 @@
             }
         ?>
         </aside>
-
         <form action="" method="post">
             <h2>Đăng Kí Khóa học</h2>
             <p>Họ và Tên:</p>
@@ -144,7 +143,7 @@
             <p>Email:</p>
             <input type="email" name="enroll_email" value="<?php echo $_SESSION['email']; ?>">
             <p>Số Điện Thoại: </p>
-            <input type="text" name="enroll_phone" id="" required>
+            <input type="text" name="enroll_phone" id="" required selected>
             <p>Tên Khóa học:</p>
             <select name="course_id">
                 <?php
@@ -175,16 +174,24 @@ if (isset($_POST["enroll_name"]) && isset($_POST["enroll_email"]) && isset($_POS
     $enroll_phone = $_POST["enroll_phone"];
     $course_id = $_POST["course_id"];
 
-    $sql = "INSERT INTO enrolls(enroll_name,enroll_email,enroll_phone,course_id)
+    $check_sql = "SELECT * FROM enrolls WHERE enroll_email = '$enroll_email' AND course_id = '$course_id'";
+    $check_result = $conn->query($check_sql);
+    if ($check_result->num_rows > 0) {
+        // Nếu đã tồn tại
+        echo "<script>alert('Bạn đã đăng ký khóa học này rồi!');</script>";
+    } else {
+
+        $sql = "INSERT INTO enrolls(enroll_name,enroll_email,enroll_phone,course_id)
             VALUE ('$enroll_name','$enroll_email','$enroll_phone','$course_id')";
 
-    //check xem đã nhập thông tin và ok hay chưa
-    if ($conn->query($sql) === True) {
-        echo "đã thêm thành công";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        //check xem đã nhập thông tin và ok hay chưa
+        if ($conn->query($sql) === True) {
+            echo "<script>alert('Đăng ký khóa học thành công!');</script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+        $conn->close();
     }
-    $conn->close();
 }
 
 ?>

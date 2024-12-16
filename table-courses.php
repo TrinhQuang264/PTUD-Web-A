@@ -72,83 +72,79 @@
 </style>
 
 <body>
-    <header class="header">
-        <div class="logo"><a href="index.php">COURSE</a></div>
-        <?php
-        session_start();
-        if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
-            echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
-            echo "<nav class='navbar'>
-                      <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
-                      </ul>
-                    </nav>";
-        } else if (isset($_SESSION['email'])) {
-            echo "<div class='manager'> Vài trò: Người Dùng</div>";
-            echo "<nav class='navbar'>
-                      <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
-                      </ul>
-                    </nav>";
-        } else {
-
-            echo "<nav class='navbar'>
-                    <ul>
-                      <li><a href='login.php'>Đăng Nhập</a></li>
-                      <li><a href='resgister.php'>Đăng Ký</a></li>
-                    </ul>
-                  </nav>";
-        }
-        ?>
-    </header>
     <?php
-    if (isset($_SESSION['email'])) {
+    session_start();
+    if (isset($_SESSION['email']) && $_SESSION['role_id'] != 'admin') {
     ?>
-        <aside>
-            <ul class="main-menu">
-                <li>
-                    Đăng Ký Khóa Học
-                    <ul class="submenu">
-                        <li><a href="input-enrolls.php">Đăng Ký </a></li>
-                        <li><a href="table-enrolls.php">Danh Sách </a></li>
-                        <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
-                    </ul>
-                </li>
-            <?php
-        }
-            ?>
-            <?php
-            if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
-            ?>
-                <li>
-                    Khóa học
-                    <ul class="submenu">
-                        <li><a href="input-courses.php">Tạo Khóa Học</a></li>
-                        <li><a href="table-courses.php">Danh Sách</a></li>
-                        <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
-                    </ul>
-                </li>
-                <li>
-                    <a href="account_manager.php">Quản Lý Tài Khoản</a>
-                </li>
-            </ul>
+        <div class="card--nou">
+            <div class="nou-no-admin">
+                <h2>Không có quyền truy cập</h2>
+                <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
+                <button class="back-to-login-button"><a href="index.php">Quay lại trang chủ</a></button>
+            </div>
+        </div>
+    <?php
+    }
+
+    if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
+    ?>
+        <header class="header">
+            <div class="logo"><a href="index.php">COURSE</a></div>
         <?php
-            }
+        echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
+        echo "<nav class='navbar'>
+                      <ul>
+                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                      </ul>
+                    </nav>";
+    }
         ?>
-        </aside>
-        <main>
-            <div class="table-view">
-                <h2>Danh Sách Khóa Học</h2>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tên Khóa Học</th>
-                        <th>Phân Loại</th>
-                        <th>Bài Học</th>
-                        <th>Thời Gian Học</th>
-                        <th>Học Phí</th>
-                        <th>Bắt Đầu Học</th>
-                    </tr>
+        </header>
+        <?php
+        if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
+        ?>
+            <aside>
+                <ul class="main-menu">
+                    <li>
+                        Đăng Ký Khóa Học
+                        <ul class="submenu">
+                            <li><a href="input-enrolls.php">Đăng Ký </a></li>
+                            <li><a href="table-enrolls.php">Danh Sách </a></li>
+                            <li><a href="find-enroll.php">Tìm Kiếm </a></li>
+                        </ul>
+                    </li>
+                <?php
+            }
+                ?>
+                <?php
+                if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
+                ?>
+                    <li>
+                        Khóa học
+                        <ul class="submenu">
+                            <li><a href="input-courses.php">Tạo Khóa Học</a></li>
+                            <li><a href="table-courses.php">Danh Sách</a></li>
+                            <li><a href="find-courses.php">Tìm Kiếm </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="account_manager.php">Quản Lý Tài Khoản</a>
+                    </li>
+                </ul>
+            </aside>
+            <main>
+                <div class="table-view">
+                    <h2>Danh Sách Khóa Học</h2>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên Khóa Học</th>
+                            <th>Phân Loại</th>
+                            <th>Bài Học</th>
+                            <th>Thời Gian Học</th>
+                            <th>Học Phí</th>
+                            <th>Bắt Đầu Học</th>
+                        </tr>
                     <?php
                     require 'connect.php';
                     mysqli_set_charset($conn, 'UTF8');
@@ -191,9 +187,10 @@
                         echo  "<tr><td colspan='6' text-align='center'>Chưa có dữ liệu! Vui lòng Nhập để Hiện thị</td></tr>";
                     }
                     $conn->close();
+                }
                     ?>
-                </table>
-        </main>
+                    </table>
+            </main>
 </body>
 
 </html>

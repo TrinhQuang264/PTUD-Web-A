@@ -111,7 +111,7 @@
                     <ul class="submenu">
                         <li><a href="input-enrolls.php">Đăng Ký </a></li>
                         <li><a href="table-enrolls.php">Danh Sách </a></li>
-                        <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
+                        <li><a href="find-enroll.php">Tìm Kiếm </a></li>
                     </ul>
                 </li>
             <?php
@@ -125,7 +125,7 @@
                     <ul class="submenu">
                         <li><a href="input-courses.php">Tạo Khóa Học</a></li>
                         <li><a href="table-courses.php">Danh Sách</a></li>
-                        <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
+                        <li><a href="find-courses.php">Tìm Kiếm </a></li>
                     </ul>
                 </li>
                 <li>

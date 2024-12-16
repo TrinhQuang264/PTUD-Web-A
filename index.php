@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="home-page.css" />
 </head>
 <style>
+  body {
+    background-color: rgb(255, 244, 244);
+  }
+
+  .header {
+    border-bottom: 2px solid black;
+  }
+
   .header .manager {
     margin-left: 20px;
   }
@@ -72,8 +80,8 @@
 
   main {
     height: auto;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   main .title {
@@ -92,14 +100,16 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-left: 60px;
-    row-gap: 30px;
+    row-gap: 40px;
+    column-gap: 20px;
   }
 
   .list_courses .grid_item {
-    width: 260px;
+    width: 280px;
     border-radius: 5px;
     padding: 5px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+    background-color: white;
   }
 
   .list_courses .grid_item-price {
@@ -156,7 +166,7 @@
           <ul class="submenu">
             <li><a href="input-enrolls.php">Đăng Ký </a></li>
             <li><a href="table-enrolls.php">Danh Sách </a></li>
-            <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
+            <li><a href="find-enroll.php">Tìm Kiếm </a></li>
           </ul>
         </li>
       <?php
@@ -170,7 +180,7 @@
           <ul class="submenu">
             <li><a href="input-courses.php">Tạo Khóa Học</a></li>
             <li><a href="table-courses.php">Danh Sách</a></li>
-            <!-- <li><a href="find-enroll.php">Tìm Kiếm </a></li> -->
+            <li><a href="find-courses.php">Tìm Kiếm </a></li>
           </ul>
         </li>
         <li>
@@ -184,7 +194,7 @@
     <!--Phần Body hiện thị tự động khóa học từ csdl courses -->
     <main>
       <div class="title">
-        <h2>Các Khóa Học Chúng Tôi:</h2>
+        <h2>Các Khóa Học của Chúng Tôi:</h2>
       </div>
       <div class="list_courses">
         <div class="template_course">
