@@ -1,5 +1,5 @@
 <?php
-require 'connect.php';
+require '../connect.php';
 $account_id = $_GET["account_id"];
 mysqli_set_charset($conn, 'UTF8');
 

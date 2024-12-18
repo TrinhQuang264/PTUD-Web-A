@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Quản Lý Tài Khoản</title>
-    <link rel="stylesheet" href="find_account.css">
+    <link rel="stylesheet" href="../css/find_account.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
@@ -19,7 +19,7 @@
             <div class="nou-no-admin">
                 <h2 id=>Không có quyền truy cập</h2>
                 <p style="color:rgb(175,  136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
-                <button class="back-to-login-button"><a href="index.php">Quay lại trang chủ</a></button>
+                <button class="back-to-login-button"><a href="../index.php">Quay lại trang chủ</a></button>
             </div>
         </div>
 
@@ -30,13 +30,13 @@
         <header class="header">
             <nav class="navbar">
                 <ul>
-                    <li class="homepage"><a href="index.php">Trang Chủ</a></li>
+                    <li class="homepage"><a href="../index.php">Trang Chủ</a></li>
                     <li class="find"><a href="account_manager.php">Quản Lý Tài Khoản</a></li>
                 </ul>
             </nav>
             <div class="logout">
                 <?php
-                echo "<a href='logout.php'>Đăng Xuất</a>";
+                echo "<a href='../logout.php'>Đăng Xuất</a>";
                 ?>
             </div>
         </header>
@@ -55,7 +55,7 @@
                 <div class="nou-no-admin">
                     <h2 id=>Không có quyền truy cập</h2>
                     <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
-                    <button class="back-to-login-button"><a href="login.php">Quay lại trang đăng nhập</a></button>
+                    <button class="back-to-login-button"><a href="../login.php">Quay lại trang đăng nhập</a></button>
                 </div>
             </div>
         <?php
@@ -74,9 +74,9 @@
                     <!-- <p>Email:</p>
                     <input type="email" name="email" placeholder="Tìm Kiếm Theo Email"><br> -->
                     <p>Quyền:</p>
-                    <select name="role_id" value="<?php echo $row["role_id"]; ?>"><br>
+                    <select name="role_id"><br>
                         <?php
-                        require 'connect.php';
+                        require '../connect.php';
                         $sql = "SELECT * FROM role";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
@@ -95,7 +95,7 @@
             </div>
             <?php
             if (isset($_GET["role_id"])) {
-                require 'connect.php';
+                require '../connect.php';
                 mysqli_set_charset($conn, 'UTF8');
                 // $account_id = $_GET['account_id'];
                 // $last_name = $_GET['last_name'];
@@ -110,7 +110,7 @@
 
                 $result = $conn->query($sql);
 
-                if ($result != false && $result->num_rows > 0) {
+                if ($result->num_rows > 0) {
                     echo "<div class='show-find-table'>";
                     echo "<table>
                         <p> Bảng thông tin </p>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm Khóa Học</title>
-    <link rel="stylesheet" href="home-page.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <style>
     .header .manager {
@@ -81,7 +81,7 @@
             <div class="nou-no-admin">
                 <h2>Không có quyền truy cập</h2>
                 <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
-                <button class="back-to-login-button"><a href="index.php">Quay lại trang chủ</a></button>
+                <button class="back-to-login-button"><a href="../index.php">Quay lại trang chủ</a></button>
             </div>
         </div>
     <?php
@@ -90,12 +90,12 @@
     if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
     ?>
         <header class="header">
-            <div class="logo"><a href="index.php">COURSE</a></div>
+            <div class="logo"><a href="../index.php">COURSE</a></div>
         <?php
         echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
         echo "<nav class='navbar'>
                       <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                        <li><a href='../logout.php'>Đăng Xuất</a></li>
                       </ul>
                     </nav>";
     }
@@ -108,9 +108,9 @@
                     <li>
                         Đăng Ký Khóa Học
                         <ul class="submenu">
-                            <li><a href="input-enrolls.php">Đăng Ký </a></li>
-                            <li><a href="table-enrolls.php">Danh Sách </a></li>
-                            <li><a href="find-enroll.php">Tìm Kiếm </a></li>
+                            <li><a href="../enroll/input-enrolls.php">Đăng Ký </a></li>
+                            <li><a href="../enroll/table-enrolls.php">Danh Sách </a></li>
+                            <li><a href="../enroll/find-enroll.php">Tìm Kiếm </a></li>
                         </ul>
                     </li>
 
@@ -123,7 +123,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="account_manager.php">Quản Lý Tài Khoản</a>
+                        <a href="../account_manage/account_manager.php">Quản Lý Tài Khoản</a>
                     </li>
                 </ul>
             </aside>
@@ -135,7 +135,7 @@
                 <p>Phân Loại:</p>
                 <select name="difficulty_id">
                     <?php
-                    require 'connect.php';
+                    require '../connect.php';
                     $sql = "SELECT * FROM difficult";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
@@ -168,7 +168,7 @@
 </html>
 <?php
 if (isset($_GET["course_id"]) && isset($_GET["course_name"]) && isset($_GET["difficulty_id"]) && isset($_GET["lesson_count"])  && isset($_GET["duration"])  && isset($_GET["fee"])  && isset($_GET["start_date"])) {
-    require 'connect.php';
+    require '../connect.php';
     $course_id = $_GET["course_id"];
     $course_name = $_GET["course_name"];
     $difficulty_id = $_GET["difficulty_id"];

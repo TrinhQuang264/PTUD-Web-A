@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Kí Khóa Học</title>
-    <link rel="stylesheet" href="home-page.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <style>
     .header .manager {
@@ -73,29 +73,29 @@
 
 <body>
     <header class="header">
-        <div class="logo"><a href="index.php">COURSE</a></div>
+        <div class="logo"><a href="../index.php">COURSE</a></div>
         <?php
         session_start();
         if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
             echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
             echo "<nav class='navbar'>
                       <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                        <li><a href='../logout.php'>Đăng Xuất</a></li>
                       </ul>
                     </nav>";
         } else if (isset($_SESSION['email'])) {
             echo "<div class='manager'> Vài trò: Người Dùng</div>";
             echo "<nav class='navbar'>
                       <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                        <li><a href='../logout.php'>Đăng Xuất</a></li>
                       </ul>
                     </nav>";
         } else {
 
             echo "<nav class='navbar'>
                     <ul>
-                      <li><a href='login.php'>Đăng Nhập</a></li>
-                      <li><a href='resgister.php'>Đăng Ký</a></li>
+                      <li><a href='../login.php'>Đăng Nhập</a></li>
+                      <li><a href='../resgister.php'>Đăng Ký</a></li>
                     </ul>
                   </nav>";
         }
@@ -123,13 +123,13 @@
                 <li>
                     Khóa học
                     <ul class="submenu">
-                        <li><a href="input-courses.php">Tạo Khóa Học</a></li>
-                        <li><a href="table-courses.php">Danh Sách</a></li>
-                        <li><a href="find-courses.php">Tìm Kiếm </a></li>
+                        <li><a href="../courses/input-courses.php">Tạo Khóa Học</a></li>
+                        <li><a href="../courses/table-courses.php">Danh Sách</a></li>
+                        <li><a href="../courses/find-courses.php">Tìm Kiếm </a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="account_manager.php">Quản Lý Tài Khoản</a>
+                    <a href="../account_manage/account_manager.php">Quản Lý Tài Khoản</a>
                 </li>
             </ul>
         <?php
@@ -147,7 +147,7 @@
             <p>Tên Khóa học:</p>
             <select name="course_id">
                 <?php
-                require 'connect.php';
+                require '../connect.php';
                 $sql = "SELECT * FROM courses";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
@@ -168,7 +168,7 @@
 </html>
 <?php
 if (isset($_POST["enroll_name"]) && isset($_POST["enroll_email"]) && isset($_POST["enroll_phone"]) && isset($_POST["course_id"])) {
-    require 'connect.php';
+    require '../connect.php';
     $enroll_name = $_POST["enroll_name"];
     $enroll_email = $_POST["enroll_email"];
     $enroll_phone = $_POST["enroll_phone"];

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Quản Lý Tài Khoản</title>
-    <link rel="stylesheet" href="account_manager.css">
+    <link rel="stylesheet" href="../css/account_manager.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
@@ -17,13 +17,13 @@
         <header class="header">
             <nav class="navbar">
                 <ul>
-                    <li class="homepage"><a href="index.php">Trang Chủ</a></li>
+                    <li class="homepage"><a href="../index.php">Trang Chủ</a></li>
                     <li class="find"><a href="find_account.php">Tìm Kiếm</a></li>
                 </ul>
             </nav>
             <div class="logout">
                 <?php
-                echo "<a href='logout.php'>Đăng Xuất</a>";
+                echo "<a href='../logout.php'>Đăng Xuất</a>";
                 ?>
             </div>
         </header>
@@ -49,7 +49,7 @@
                         <th>Tính Năng</th>
                     </tr>
                     <?php
-                    require 'connect.php';
+                    require '../connect.php';
                     mysqli_set_charset($conn, 'UTF8');
 
                     $sql = "SELECT a.account_id,a.last_name,a.first_name,a.email,a.password,r.role_name
@@ -99,7 +99,7 @@
             <div class="nou-no-admin">
                 <h2 id=>Không có quyền truy cập</h2>
                 <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
-                <button class="back-to-login-button"><a href="index.php">Quay lại trang chủ</a></button>
+                <button class="back-to-login-button"><a href="../index.php">Quay lại trang chủ</a></button>
             </div>
         </div>
     <?php

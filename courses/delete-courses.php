@@ -1,5 +1,5 @@
 <?php
-require 'connect.php';
+require '../connect.php';
 $course_id = $_GET["course_id"];
 mysqli_set_charset($conn, 'UTF8');
 

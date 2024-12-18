@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trang Chủ</title>
-  <link rel="stylesheet" href="home-page.css" />
+  <link rel="stylesheet" href="./css/index.css" />
 </head>
 <style>
   body {
@@ -164,9 +164,9 @@
         <li>
           Đăng Ký Khóa Học
           <ul class="submenu">
-            <li><a href="input-enrolls.php">Đăng Ký </a></li>
-            <li><a href="table-enrolls.php">Danh Sách </a></li>
-            <li><a href="find-enroll.php">Tìm Kiếm </a></li>
+            <li><a href="./enroll/input-enrolls.php">Đăng Ký </a></li>
+            <li><a href="./enroll/table-enrolls.php">Danh Sách </a></li>
+            <li><a href="./enroll/find-enroll.php">Tìm Kiếm </a></li>
           </ul>
         </li>
       <?php
@@ -178,13 +178,13 @@
         <li>
           Khóa học
           <ul class="submenu">
-            <li><a href="input-courses.php">Tạo Khóa Học</a></li>
-            <li><a href="table-courses.php">Danh Sách</a></li>
-            <li><a href="find-courses.php">Tìm Kiếm </a></li>
+            <li><a href="./courses/input-courses.php">Tạo Khóa Học</a></li>
+            <li><a href="./courses/table-courses.php">Danh Sách</a></li>
+            <li><a href="./courses/find-courses.php">Tìm Kiếm </a></li>
           </ul>
         </li>
         <li>
-          <a href="account_manager.php">Quản Lý Tài Khoản</a>
+          <a href="./account_manage/account_manager.php">Quản Lý Tài Khoản</a>
         </li>
       </ul>
     <?php

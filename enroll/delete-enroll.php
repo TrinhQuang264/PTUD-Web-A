@@ -1,5 +1,5 @@
 <?php
-require 'connect.php';
+require '../connect.php';
 $enroll_id = $_GET["enroll_id"];
 mysqli_set_charset($conn, 'UTF8');
 

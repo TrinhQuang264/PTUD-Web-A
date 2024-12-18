@@ -174,23 +174,3 @@ svg {
   width: 800px;
   top: 25px;
 }
-/*test*/
-.role-radio-group {
-  margin: 10px 0;
-}
-
-.radio-item {
-  margin: 5px 0;
-  display: inline-block;
-  margin-right: 15px;
-  text-align: left;
-  align-content: start;
-}
-
-.radio-item input[type="radio"] {
-  margin-right: 8px;
-}
-
-.radio-item label {
-  cursor: pointer;
-}

@@ -5,163 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh Sửa Tài Khoản</title>
+    <link rel="stylesheet" href="../css/change_info_manager.css">
 </head>
-<style>
-    * {
-        font-family: Arial, Helvetica, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    /*Phần Nav bar*/
-    .header {
-        position: sticky;
-        background-color: lightblue;
-        width: 100%;
-        top: 0;
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 60px;
-    }
-
-    ul,
-    li,
-    .logout {
-        list-style: none;
-        font-size: 15px;
-        font-weight: bold;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    a:hover {
-        color: red;
-    }
-
-    .navbar ul li {
-        display: inline-block;
-        padding-left: 20px;
-    }
-
-    .logout {
-        margin-right: 20px;
-    }
-
-    /*Phần aside tính năng*/
-    aside {
-        background-color: aquamarine;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        bottom: 0;
-        width: 180px;
-        height: 100%;
-    }
-
-    aside p {
-        text-align: center;
-        margin-top: 3px;
-        margin-bottom: 3px;
-    }
-
-    p:nth-child(1) {
-        margin-top: 5px;
-        font-size: 20px;
-        font-weight: bold;
-        border-bottom: 1px solid #0056b3;
-    }
-
-    p:nth-child(2) {
-        font-weight: bold;
-        margin: 0;
-    }
-
-    p:nth-child(3) {
-        margin: 0;
-        font-size: 14px;
-    }
-
-    main {
-        position: relative;
-    }
-
-    .container {
-        position: absolute;
-        left: 180px;
-        top: 20px;
-        width: 1275px;
-    }
-
-    .no-change {
-        font-size: 15px;
-        margin-left: 470px;
-        margin-top: 10px;
-    }
-
-    form {
-        text-align: left;
-        align-content: center;
-        width: 215px;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        margin-left: 500px;
-    }
-
-    form h2 {
-        font-size: 15px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-
-    form p {
-        text-align: left;
-        margin-bottom: 0px;
-        font-weight: 400;
-        font-size: 12px;
-    }
-
-    form input {
-        width: 190px;
-        margin-top: 0px;
-        margin-bottom: 10px;
-        padding: 10px;
-        border-radius: 3px;
-        border: 1px solid gray;
-        outline: none;
-    }
-
-    form input:focus {
-        border: 1px solid #32f645;
-    }
-
-    form .submit-button {
-        margin-top: 10px;
-        margin-bottom: 20px;
-        border: none;
-        background-color: #92fe9d;
-        color: #155724;
-        font-weight: 700;
-        width: 190px;
-        margin-left: 5px;
-    }
-
-    form .submit-button:hover {
-        background: white;
-        color: #32f645;
-        border: 2px solid #92fe9d;
-    }
-
-    form .submit-button:active {
-        opacity: 0.3;
-    }
-</style>
 
 <body>
     <?php
@@ -171,13 +16,13 @@
         <header class="header">
             <nav class="navbar">
                 <ul>
-                    <li class="homepage"><a href="index.php">Trang Chủ</a></li>
-                    <li class="find"><a href="find_account.php">Tìm Kiếm</a></li>
+                    <li class="homepage"><a href="../index.php">Trang Chủ</a></li>
+                    <li class="find"><a href="./account_manage/find_account.php">Tìm Kiếm</a></li>
                 </ul>
             </nav>
             <div class="logout">
                 <?php
-                echo "<a href='logout.php'>Đăng Xuất</a>";
+                echo "<a href='../logout.php'>Đăng Xuất</a>";
                 ?>
             </div>
         </header>
@@ -193,7 +38,7 @@
         <main>
             <?php
             $account_id = $_GET["account_id"];
-            require 'connect.php';
+            require '../connect.php';
             $sql = "SELECT * FROM account WHERE account_id='$account_id'";
 
             $result = $conn->query($sql);
@@ -215,7 +60,7 @@
                     <p>Quyền:</p>
                     <select name="role_id" value="<?php echo $row["role_id"]; ?>"><br>
                         <?php
-                        require 'connect.php';
+                        require '../connect.php';
                         $sql = "SELECT * FROM role";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
@@ -240,7 +85,7 @@
             <div class="nou-no-admin">
                 <h2 id=>Không có quyền truy cập</h2>
                 <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
-                <button class="back-to-login-button"><a href="index.php">Quay lại trang chủ</a></button>
+                <button class="back-to-login-button"><a href="../index.php">Quay lại trang chủ</a></button>
             </div>
         </div>
     <?php
@@ -253,7 +98,7 @@
 </html>
 <?php
 if (isset($_POST["account_id"]) && isset($_POST["last_name"]) && isset($_POST["first_name"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role_id"])) {
-    require 'connect.php';
+    require '../connect.php';
     $account_id = $_POST["account_id"];
     $last_name = $_POST["last_name"];
     $first_name = $_POST["first_name"];
@@ -265,6 +110,7 @@ if (isset($_POST["account_id"]) && isset($_POST["last_name"]) && isset($_POST["f
             WHERE account_id= '$account_id'";
     if ($conn->query($sql) == True) {
         echo " Đã thay đổi";
+        echo "<script>alert('Bạn đã sửa thành công!');</script>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

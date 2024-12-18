@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Kí Khóa Học</title>
-    <link rel="stylesheet" href="home-page.css">
+    <title>Thêm Khóa Học</title>
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <style>
     .header .manager {
@@ -73,29 +73,29 @@
 
 <body>
     <header class="header">
-        <div class="logo"><a href="index.php">COURSE</a></div>
+        <div class="logo"><a href="../index.php">COURSE</a></div>
         <?php
         session_start();
         if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
             echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
             echo "<nav class='navbar'>
                       <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                        <li><a href='../logout.php'>Đăng Xuất</a></li>
                       </ul>
                     </nav>";
         } else if (isset($_SESSION['email'])) {
             echo "<div class='manager'> Vài trò: Người Dùng</div>";
             echo "<nav class='navbar'>
                       <ul>
-                        <li><a href='logout.php'>Đăng Xuất</a></li>
+                        <li><a href='../logout.php'>Đăng Xuất</a></li>
                       </ul>
                     </nav>";
         } else {
 
             echo "<nav class='navbar'>
                     <ul>
-                      <li><a href='login.php'>Đăng Nhập</a></li>
-                      <li><a href='resgister.php'>Đăng Ký</a></li>
+                      <li><a href='../login.php'>Đăng Nhập</a></li>
+                      <li><a href='../resgister.php'>Đăng Ký</a></li>
                     </ul>
                   </nav>";
         }
@@ -109,9 +109,9 @@
                 <li>
                     Đăng Ký Khóa Học
                     <ul class="submenu">
-                        <li><a href="input-enrolls.php">Đăng Ký </a></li>
-                        <li><a href="table-enrolls.php">Danh Sách </a></li>
-                        <li><a href="find-enroll.php">Tìm Kiếm </a></li>
+                        <li><a href="../enroll/input-enrolls.php">Đăng Ký </a></li>
+                        <li><a href="../enroll/table-enrolls.php">Danh Sách </a></li>
+                        <li><a href="../enroll/find-enroll.php">Tìm Kiếm </a></li>
                     </ul>
                 </li>
             <?php
@@ -129,7 +129,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="account_manager.php">Quản Lý Tài Khoản</a>
+                    <a href="../account_manage/account_manager.php">Quản Lý Tài Khoản</a>
                 </li>
             </ul>
         <?php
@@ -137,57 +137,66 @@
         ?>
         </aside>
         <?php
-        $enroll_email = $_GET["enroll_email"];
-        require 'connect.php';
-        $sql = "SELECT * FROM enrolls WHERE enroll_email='$enroll_email'";
+        $course_id = $_GET["course_id"];
+        require '../connect.php';
+        $sql = "SELECT * FROM courses WHERE course_id='$course_id'";
 
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
         ?>
-        <form action="" method="post">
-            <h2>Đăng Kí Khóa học</h2>
-            <p>Họ và Tên:</p>
-            <input type="text" name="enroll_name" value="<?php echo $row["enroll_name"]; ?>">
-            <p>Email:</p>
-            <input type="email" name="enroll_email" value="<?php echo $row["enroll_email"]; ?>">
-            <p>Số Điện Thoại: </p>
-            <input type="text" name="enroll_phone" value="<?php echo $row["enroll_phone"]; ?>">
-            <p>Tên Khóa học:</p>
-            <select name="course_id" value="<?php echo $row["course_id"]; ?>">
+        <form action="" method="get">
+            <p>Mã Khóa Học:</p>
+            <input type="text" name="course_id" value="<?php echo $course_id; ?> " readonly>
+            <p>Tên Khóa Học:</p>
+            <input type="text" name="course_name" value="<?php echo $row["course_name"]; ?>">
+            <p>Phân loại</p>
+            <select name="difficulty_id" value="<?php echo $row["difficulty_id"]; ?>">
                 <?php
-                require 'connect.php';
-                $sql = "SELECT * FROM courses";
+                require '../connect.php';
+                $sql = "SELECT * FROM difficult";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     for ($i = 0; $i < $result->num_rows; $i++) {
-                        $row = $result->fetch_assoc();
-                        $course_id = $row["course_id"];
-                        $course_name = $row["course_name"];
-                        echo "<option value='$course_id'selected>" . $row["course_name"] . "</option>";
+                        $row_d = $result->fetch_assoc();
+                        $difficulty_id = $row_d["difficulty_id"];
+                        $difficulty_name = $row_d["difficulty_name"];
+                        echo "<option value='$difficulty_id' selected>" . $row_d["difficulty_name"] . "</option>";
                     }
                 }
-                $conn->close();
+
                 ?>
             </select>
+            <p>Số Bài Học:</p>
+            <input type="number" name="lesson_count" value="<?php echo $row["lesson_count"]; ?>">
+            <p>Thời Gian Học:</p>
+            <input type="text" name="duration" id="" value="<?php echo $row["duration"]; ?>">
+            <p>Học Phí:</p>
+            <input type="text" name="fee" value="<?php echo $row["fee"]; ?>">
+            <p>Ngày Bắt Đầu:</p>
+            <input type="text" name="start_date" value="<?php echo $row["start_date"]; ?>">
             <input type="submit" value="Gửi">
         </form>
-        <h2 class="no-change">Không muốn chỉnh sửa thì ấn <a href="table-enrolls.php">Quay Lại</a> đây!</h2>
+        <h2 class="no-change">Không muốn chỉnh sửa thì ấn <a href="table-courses.php">Quay Lại</a> đây!</h2>
 </body>
 
 </html>
 <?php
-if (isset($_POST["enroll_name"]) && isset($_POST["enroll_email"]) && isset($_POST["enroll_phone"]) && isset($_POST["course_id"])) {
-    require 'connect.php';
-    $enroll_name = $_POST["enroll_name"];
-    $enroll_email = $_POST["enroll_email"];
-    $enroll_phone = $_POST["enroll_phone"];
-    $course_id = $_POST["course_id"];
+if (isset($_GET["course_id"]) && isset($_GET["course_name"]) && isset($_GET["difficulty_id"]) && isset($_GET["lesson_count"])  && isset($_GET["duration"])  && isset($_GET["fee"])  && isset($_GET["start_date"])) {
+    require '../connect.php';
+    $course_id = $_GET["course_id"];
+    $course_name = $_GET["course_name"];
+    $difficulty_id = $_GET["difficulty_id"];
+    $lesson_count = $_GET["lesson_count"];
+    $duration = $_GET["duration"];
+    $fee = $_GET["fee"];
+    $start_date = $_GET["start_date"];
 
     mysqli_set_charset($conn, 'UTF8');
-    $sql = "UPDATE enrolls SET enroll_name = '$enroll_name', enroll_email = '$enroll_email', enroll_phone = '$enroll_phone', course_id = '$course_id'
-            WHERE enroll_email = '$enroll_email'";
+    $sql = "UPDATE courses SET course_name = '$course_name', difficulty_id = '$difficulty_id', lesson_count = '$lesson_count', duration = '$duration', fee = '$fee' ,start_date ='$start_date'
+            WHERE course_id = '$course_id'";
     if ($conn->query($sql) === True) {
         echo "đã thêm thành công";
+        echo "<script>alert('Bạn đã sửa thành công!');</script>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
