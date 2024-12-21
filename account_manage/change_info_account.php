@@ -49,10 +49,8 @@
                     <h2>Sửa Thông Tin</h2>
                     <p>ID</p>
                     <input type="number" name="account_id" value="<?php echo $account_id; ?>" readonly><br>
-                    <p>Họ và Họ Đệm:</p>
-                    <input type="text" name="last_name" value="<?php echo $row["last_name"]; ?>"><br>
-                    <p>Tên:</p>
-                    <input type="text" name="first_name" value="<?php echo $row["first_name"]; ?>"><br>
+                    <p>Họ và Tên:</p>
+                    <input type="text" name="fullname" value="<?php echo $row["fullname"]; ?>"><br>
                     <p>Email:</p>
                     <input type="text" name="email" value="<?php echo $row["email"]; ?>"><br>
                     <p>Mật Khẩu:</p>
@@ -97,16 +95,15 @@
 
 </html>
 <?php
-if (isset($_POST["account_id"]) && isset($_POST["last_name"]) && isset($_POST["first_name"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role_id"])) {
+if (isset($_POST["account_id"]) && isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role_id"])) {
     require '../connect.php';
     $account_id = $_POST["account_id"];
-    $last_name = $_POST["last_name"];
-    $first_name = $_POST["first_name"];
+    $fullname = $_POST["fullname"];
     $password = $_POST["password"];
     $email = $_POST["email"];
     $role_id = $_POST["role_id"];
     mysqli_set_charset($conn, 'UTF8');
-    $sql = "UPDATE account SET account_id = '$account_id', last_name = '$last_name', first_name = '$first_name', password = '$password', email = '$email', role_id = '$role_id' 
+    $sql = "UPDATE account SET account_id = '$account_id', fullname = '$fullname', password = '$password', email = '$email', role_id = '$role_id' 
             WHERE account_id= '$account_id'";
     if ($conn->query($sql) == True) {
         echo " Đã thay đổi";

@@ -80,7 +80,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
   $email = $_POST["email"];
   $password =  $_POST["password"];
 
-  $sql = "SELECT email, password, last_name, first_name,role_id FROM account Where email = '$email' ";
+  $sql = "SELECT email, password, fullname,role_id FROM account Where email = '$email' ";
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();
   //check xem nhập hay chưa hay bỏ trống hoặc nhập sai

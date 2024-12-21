@@ -41,8 +41,7 @@
                 <table>
                     <tr>
                         <th>ID</th>
-                        <th>Họ và Họ Đệm</th>
-                        <th>Tên</th>
+                        <th>Họ và Tên</th>
                         <th>Email</th>
                         <th>Mật Khẩu</th>
                         <th>Quyền</th>
@@ -52,7 +51,7 @@
                     require '../connect.php';
                     mysqli_set_charset($conn, 'UTF8');
 
-                    $sql = "SELECT a.account_id,a.last_name,a.first_name,a.email,a.password,r.role_name
+                    $sql = "SELECT a.account_id,a.fullname,a.email,a.password,r.role_name
                      FROM account a
                     INNER JOIN role r On  a.role_id = r.role_id;";
 
@@ -65,8 +64,7 @@
                             $account_id = $row["account_id"];
                             echo "<tr style='background-color: $bgColor;'>";
                             echo "<td>" . $row["account_id"] . "</td>";
-                            echo "<td>" . $row["last_name"] . "</td>";
-                            echo "<td>" . $row["first_name"] . "</td>";
+                            echo "<td>" . $row["fullname"] . "</td>";
                             echo "<td>" . $row["email"] . "</td>";
                             echo "<td>" . $row["password"] . "</td>";
                             echo "<td>" . $row["role_name"] . "</td>";

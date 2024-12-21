@@ -136,14 +136,23 @@
             }
         ?>
         </aside>
+        <?php
+        require '../connect.php';
+        $email_account = $_SESSION['email'];
+
+        $sql = "SELECT * FROM account WHERE email = '$email_account'";
+
+        $result = $conn->query($sql);
+        $row_info = $result->fetch_assoc();
+        ?>
         <form action="" method="post">
             <h2>Đăng Kí Khóa học</h2>
             <p>Họ và Tên:</p>
-            <input type="text" name="enroll_name" value="<?php echo $_SESSION['last_name'] . " " . $_SESSION['first_name']; ?>" required>
+            <input type="text" name="enroll_name" value="<?php echo $row_info['fullname']; ?>" required>
             <p>Email:</p>
             <input type="email" name="enroll_email" value="<?php echo $_SESSION['email']; ?>">
             <p>Số Điện Thoại: </p>
-            <input type="text" name="enroll_phone" id="" required selected>
+            <input type="text" name="enroll_phone" value="<?php echo $row_info['phone']; ?>" required>
             <p>Tên Khóa học:</p>
             <select name="course_id">
                 <?php

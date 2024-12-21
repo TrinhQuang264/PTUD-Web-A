@@ -103,7 +103,7 @@
                 // $email = $_GET['email'];
                 $role_id = $_GET['role_id'];
 
-                $sql = "SELECT a.account_id,a.last_name,a.first_name,a.email,a.password,r.role_name
+                $sql = "SELECT a.account_id,a.fullname,a.email,a.password,r.role_name
                         FROM account a
                         INNER JOIN role r On  a.role_id = r.role_id Where a.role_id ='$role_id'";
 
@@ -116,16 +116,14 @@
                         <p> Bảng thông tin </p>
                         <tr>
                             <th>ID</th>
-                            <th>Họ và Họ Đệm</th>
-                            <th>Tên</th>
+                            <th>Họ và Tên</th>                     
                             <th>Email</th>
                             <th>Quyền</th>
                         </tr>";
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $row["account_id"] . "</td>" .
-                            "<td>" . $row["last_name"] . "</td>" .
-                            "<td>" . $row["first_name"] . "</td>" .
+                            "<td>" . $row["fullname"] . "</td>" .
                             "<td>" . $row["email"] . "</td>" .
                             "<td>" . $row["role_name"] . "</td>";
                         echo "</tr>";

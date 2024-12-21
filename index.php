@@ -186,6 +186,9 @@
         <li>
           <a href="./account_manage/account_manager.php">Quản Lý Tài Khoản</a>
         </li>
+        <li>
+          <a href="account_info.php">Thông Tin Tài Khoản</a>
+        </li>
       </ul>
     <?php
       }

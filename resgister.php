@@ -58,13 +58,8 @@
   <div class="container">
     <form action="" method="POST" class="login-box">
       <h2>Đăng Ký</h2>
-      <p>Họ và Họ Đệm:</p>
-      <input
-        type="text"
-        name="last_name"
-        placeholder="Đăng Ký Họ và Họ Đệm " id='last_name' required />
-      <p>Tên:</p>
-      <input type="text" name="first_name" placeholder="Đăng Ký Tên " id='first_name' required /><br />
+      <p>Họ và Tên</p>
+      <input type="text" name="fullname" placeholder="Đăng Ký Tên " id='fullname' required /><br />
       <p>Email:</p>
       <input type="email" name="email" placeholder="Đăng Ký Email " id='email' required /><br />
       <p>Mật khẩu:</p>
@@ -83,22 +78,23 @@
 
 
 
-  if (isset($_POST["last_name"]) != "" && isset($_POST["first_name"]) != "" && isset($_POST["email"]) != "" && isset($_POST["password"]) != "") {
+  if (isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_POST["password"])) {
     require 'connect.php';
-    $last_name = $_POST["last_name"];
-    $first_name = $_POST["first_name"];
+    $fullname = $_POST["fullname"];
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $sql = "INSERT INTO account(email,password,first_name,last_name,role_id)
-            VALUE ('$email','$password','$first_name','$last_name','user')";
+    $sql = "INSERT INTO account(email,password,fullname,role_id)
+            VALUE ('$email','$password','$fullname','user')";
     //check xem đã nhập thông tin và ok hay chưa
     if ($conn->query($sql) === True) {
       echo "<script>
               alert('Bạn đã đăng ký thành công');
             </script>";
     } else {
-      echo "Error: " . $sql . "<br>" . $conn->error;
+      "<script>
+              alert('Error: ' . $sql . '< br > ' . $conn->error);
+      </script>";
     }
     $conn->close();
   }
