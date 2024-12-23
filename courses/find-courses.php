@@ -5,71 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tìm Kiếm Thông Tin</title>
-    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../index.css" />
 </head>
 <style>
-    .header .manager {
-        margin-left: 20px;
-    }
-
-    aside {
-        position: sticky;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background-color: aquamarine;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        height: 30px;
-    }
-
-    aside ul {
-        display: flex;
-        padding: 0;
-        margin: 0;
-
-    }
-
-    aside ul li {
-        list-style: none;
-        margin-left: 20px;
-    }
-
-    /*menu con */
-    .main-menu {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    /* Các mục trong menu chính */
-    .main-menu li {
-        position: relative;
-        margin-bottom: 10px;
-    }
-
-    /* Menu con (submenu) mặc định ẩn */
-    .submenu {
-        display: none;
-        position: absolute;
-        /* Đặt menu phụ sang bên phải */
-        top: 20px;
-        background-color: lightblue;
-        padding: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 150px;
-    }
-
-    /* Hiển thị submenu khi di chuột vào menu chính */
-    .main-menu li:hover .submenu {
-        display: block;
-    }
-
-    .submenu li {
-        margin-bottom: 5px;
-    }
-
     form {
         text-align: left;
         align-content: center;
@@ -198,104 +137,129 @@
     if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
     ?>
         <header class="header">
-            <div class="logo"><a href="../index.php">COURSE</a></div>
+            <!-- Logo -->
+            <div class="logo">
+                <a href="../index.php">COURSE</a>
+            </div>
+            <!-- Menu -->
+            <ul class="main-menu">
+                <li>
+                    <span>Đăng Ký</span>
+                    <ul class="submenu">
+                        <li><a href="./enroll/input-enrolls.php">Đăng Ký</a></li>
+                        <li><a href="./enroll/table-enrolls.php">Danh Sách</a></li>
+                        <li><a href="./enroll/find-enroll.php">Tìm Kiếm</a></li>
+                    </ul>
+                </li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
+                    <li>
+                        <span>Khóa học</span>
+                        <ul class="submenu">
+                            <li><a href="input-courses.php">Tạo Khóa Học</a></li>
+                            <li><a href="table-courses.php">Danh Sách</a></li>
+                            <li><a href="find-courses.php">Tìm Kiếm</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+            <!-- Bên Phải-->
+            <div class="dropdown">
+                <div class="dropdown__main">
+                    <?php
+                    echo "<span>" . $_SESSION['fullname'] . "</span>";
+                    ?>
+                </div>
+                <ul class="dropdown__list">
+                    <li class="dropdown__item">
+                        <svg class="dropdown__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                        </svg>
+                        <span class="dropdown__text"><a href="account_info.php">Thông Tin Tài Khoản</a></span>
+                    </li>
+                    <li class="dropdown__item">
+                        <svg class="dropdown__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                        </svg>
+                        <span class="dropdown__text"><a href="logout.php">Đăng Xuất</a></span>
+                    </li>
+                </ul>
+            </div>
+
         <?php
-        echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
+    } else {
+
         echo "<nav class='navbar'>
-                      <ul>
-                        <li><a href='../logout.php'>Đăng Xuất</a></li>
-                      </ul>
-                    </nav>";
+              <ul>
+                <li><a href='login.php'>Đăng Nhập</a></li>
+                <li><a href='resgister.php'>Đăng Ký</a></li>
+              </ul>
+            </nav>";
     }
         ?>
         </header>
 
-        <?php
-        if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
-        ?>
-            <aside>
-                <ul class="main-menu">
-                    <li>
-                        Đăng Ký Khóa Học
-                        <ul class="submenu">
-                            <li><a href="../enroll/input-enrolls.php">Đăng Ký </a></li>
-                            <li><a href="../enroll/table-enrolls.php">Danh Sách </a></li>
-                            <li><a href="../enroll/find-enroll.php">Tìm Kiếm </a></li>
-                        </ul>
-                    </li>
 
-                    <li>
-                        Khóa học
-                        <ul class="submenu">
-                            <li><a href="input-courses.php">Tạo Khóa Học</a></li>
-                            <li><a href="table-courses.php">Danh Sách</a></li>
-                            <li><a href="find-courses.php">Tìm Kiếm </a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="../account_manage/account_manager.php">Quản Lý Tài Khoản</a>
-                    </li>
-                </ul>
-
-            </aside>
-
-
-            <main>
-                <form action="">
-                    <h2>Tìm Khóa học đã đăng kí </h2>
-                    <p>Phân Loại:</p>
-                    <select name="difficulty_id">
-                        <?php
-                        require '../connect.php';
-                        $sql = "SELECT * FROM difficult";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            for ($i = 0; $i < $result->num_rows; $i++) {
-                                $row = $result->fetch_assoc();
-                                $difficulty_id = $row["difficulty_id"];
-                                $difficulty_name = $row["difficulty_name"];
-                                echo "<option value='$difficulty_id'>" . $row["difficulty_name"] . "</option>";
-                            }
+        <main>
+            <form action="">
+                <h2>Tìm Khóa học đã đăng kí </h2>
+                <p>Phân Loại:</p>
+                <select name="difficulty_id">
+                    <?php
+                    require '../connect.php';
+                    $sql = "SELECT * FROM difficult";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        for ($i = 0; $i < $result->num_rows; $i++) {
+                            $row = $result->fetch_assoc();
+                            $difficulty_id = $row["difficulty_id"];
+                            $difficulty_name = $row["difficulty_name"];
+                            echo "<option value='$difficulty_id'>" . $row["difficulty_name"] . "</option>";
                         }
-                        ?>
-                    </select>
-                    <input type="submit" value="Gửi">
-            </main>
+                    }
+                    ?>
+                </select>
+                <input type="submit" value="Gửi">
+        </main>
         <?php
-            if (isset($_GET["difficulty_id"])) {
-                require '../connect.php';
-                mysqli_set_charset($conn, 'UTF8');
-                $difficulty_id = $_GET['difficulty_id'];
+        if (isset($_GET["difficulty_id"])) {
+            require '../connect.php';
+            mysqli_set_charset($conn, 'UTF8');
+            $difficulty_id = $_GET['difficulty_id'];
 
-                echo "<div class='list_courses'>";
-                echo "<div class='template_course'>";
-                $sql = "SELECT course_id,course_name,d.difficulty_name,lesson_count,duration,fee, start_date         
+            echo "<div class='list_courses'>";
+            echo "<div class='template_course'>";
+            $sql = "SELECT course_id,course_name,d.difficulty_name,lesson_count,duration,fee, start_date         
                     FROM  courses c
                     INNER JOIN  difficult d On  c.difficulty_id = d.difficulty_id
                     WHERE c.difficulty_id ='$difficulty_id';";
 
 
-                $result = $conn->query($sql);
+            $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
-                    for ($i = 0; $i < $result->num_rows; $i++) {
-                        $row = $result->fetch_assoc();
-                        echo "<div class='grid_item'>";
-                        echo "<h3 class='grid_item-name'>" . $row["course_name"] . " - " . $row["difficulty_name"] . "</h3>";
-                        echo "<p class='grid_item-price'>" . $row["fee"] . "<span> VND</span>" . "</p>";
-                        echo "<p class='grid_item-amount'> <b>Số Lượng:</b> " . $row["lesson_count"] . " Bài ~ " . trim($row["duration"]) . " Tháng" . "</p>";
-                        echo "<p class='grid_item-date'><b>Ngày Bắt Đầu Học: </b>" . $row["start_date"] . "</p>";
-                        echo "</div>";
-                    }
+            if ($result->num_rows > 0) {
+                for ($i = 0; $i < $result->num_rows; $i++) {
+                    $row = $result->fetch_assoc();
+                    echo "<div class='grid_item'>";
+                    echo "<h3 class='grid_item-name'>" . $row["course_name"] . " - " . $row["difficulty_name"] . "</h3>";
+                    echo "<p class='grid_item-price'>" . $row["fee"] . "<span> VND</span>" . "</p>";
+                    echo "<p class='grid_item-amount'> <b>Số Lượng:</b> " . $row["lesson_count"] . " Bài ~ " . trim($row["duration"]) . " Tháng" . "</p>";
+                    echo "<p class='grid_item-date'><b>Ngày Bắt Đầu Học: </b>" . $row["start_date"] . "</p>";
+                    echo "</div>";
                 }
-
-                echo "</div>";
-                echo "</div>";
-            } else {
-                echo "<p class='no-respon'>Không Tìm Thấy dữ liệu!<p>";
             }
-            $conn->close();
+
+            echo "</div>";
+            echo "</div>";
+        } else {
+            echo "<p class='no-respon'>Không Tìm Thấy dữ liệu!<p>";
         }
+        $conn->close();
         ?>
 </body>
 

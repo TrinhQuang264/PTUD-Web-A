@@ -15,39 +15,7 @@
     rel="stylesheet" />
 </head>
 
-<style>
-  .header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: antiquewhite;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
-  .header .logo {
-    margin-left: 20px;
-    font-size: 30px;
-    font-weight: 900;
-    letter-spacing: 1px;
-  }
-
-  .container {
-    min-height: 70vh;
-  }
-
-  .nou {
-    position: absolute;
-    top: 480px;
-    font-size: 10px;
-    align-content: center;
-    left: 620px;
-    color: red;
-  }
-</style>
 
 <body>
   <!-- phần header -->

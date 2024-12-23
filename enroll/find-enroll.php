@@ -5,71 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tìm Kiếm Thông Tin</title>
-    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../index.css" />
 </head>
 <style>
-    .header .manager {
-        margin-left: 20px;
-    }
-
-    aside {
-        position: sticky;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background-color: aquamarine;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        height: 30px;
-    }
-
-    aside ul {
-        display: flex;
-        padding: 0;
-        margin: 0;
-
-    }
-
-    aside ul li {
-        list-style: none;
-        margin-left: 20px;
-    }
-
-    /*menu con */
-    .main-menu {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    /* Các mục trong menu chính */
-    .main-menu li {
-        position: relative;
-        margin-bottom: 10px;
-    }
-
-    /* Menu con (submenu) mặc định ẩn */
-    .submenu {
-        display: none;
-        position: absolute;
-        /* Đặt menu phụ sang bên phải */
-        top: 20px;
-        background-color: lightblue;
-        padding: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 150px;
-    }
-
-    /* Hiển thị submenu khi di chuột vào menu chính */
-    .main-menu li:hover .submenu {
-        display: block;
-    }
-
-    .submenu li {
-        margin-bottom: 5px;
-    }
-
     form {
         text-align: left;
         align-content: center;
@@ -155,92 +94,101 @@
 
 <body>
     <header class="header">
-        <div class="logo"><a href="../index.php">COURSE</a></div>
+        <!-- Logo -->
+        <div class="logo">
+            <a href="../index.php">COURSE</a>
+        </div>
         <?php
         session_start();
-        if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
-            echo "<div class='manager'> Vài trò: Quản Trị Viên</div>";
-            echo "<nav class='navbar'>
-                      <ul>
-                        <li><a href='../logout.php'>Đăng Xuất</a></li>
-                      </ul>
-                    </nav>";
-        } else if (isset($_SESSION['email'])) {
-            echo "<div class='manager'> Vài trò: Người Dùng</div>";
-            echo "<nav class='navbar'>
-                      <ul>
-                        <li><a href='../logout.php'>Đăng Xuất</a></li>
-                      </ul>
-                    </nav>";
+
+        if (isset($_SESSION['email'])) { ?>
+
+
+            <!-- Menu -->
+            <ul class="main-menu">
+                <li>
+                    <span>Đăng Ký</span>
+                    <ul class="submenu">
+                        <li><a href="input-enrolls.php">Đăng Ký</a></li>
+                        <li><a href="table-enrolls.php">Danh Sách</a></li>
+                        <li><a href="find-enroll.php">Tìm Kiếm</a></li>
+                    </ul>
+                </li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
+                    <li>
+                        <span>Khóa học</span>
+                        <ul class="submenu">
+                            <li><a href="../courses/input-courses.php">Tạo Khóa Học</a></li>
+                            <li><a href="../courses/table-courses.php">Danh Sách</a></li>
+                            <li><a href="../courses/find-courses.php">Tìm Kiếm</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+            <!-- Bên Phải-->
+            <div class="dropdown">
+                <div class="dropdown__main">
+                    <?php
+                    echo "<span>" . $_SESSION['fullname'] . "</span>";
+                    ?>
+                </div>
+                <ul class="dropdown__list">
+                    <li class="dropdown__item">
+                        <svg class="dropdown__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                        </svg>
+                        <span class="dropdown__text"><a href="account_info.php">Thông Tin Tài Khoản</a></span>
+                    </li>
+                    <li class="dropdown__item">
+                        <svg class="dropdown__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                        </svg>
+                        <span class="dropdown__text"><a href="logout.php">Đăng Xuất</a></span>
+                    </li>
+                </ul>
+            </div>
+
+        <?php
         } else {
 
             echo "<nav class='navbar'>
-                    <ul>
-                      <li><a href='../login.php'>Đăng Nhập</a></li>
-                      <li><a href='../resgister.php'>Đăng Ký</a></li>
-                    </ul>
-                  </nav>";
+              <ul>
+                <li><a href='login.php'>Đăng Nhập</a></li>
+                <li><a href='resgister.php'>Đăng Ký</a></li>
+              </ul>
+            </nav>";
         }
         ?>
     </header>
+    <main>
+        <form action="">
+            <h2>Tìm Khóa học đăng có </h2>
+            <p>Họ và Tên:</p>
+            <input type="text" name="enroll_name" required>
+            <input type="submit" value="Gửi">
+    </main>
     <?php
-    if (isset($_SESSION['email'])) {
-    ?>
-        <aside>
-            <ul class="main-menu">
-                <li>
-                    Đăng Ký Khóa Học
-                    <ul class="submenu">
-                        <li><a href="input-enrolls.php">Đăng Ký </a></li>
-                        <li><a href="table-enrolls.php">Danh Sách </a></li>
-                        <li><a href="find-enroll.php">Tìm Kiếm </a></li>
-                    </ul>
-                </li>
-            <?php
-        }
-            ?>
-            <?php
-            if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
-            ?>
-                <li>
-                    Khóa học
-                    <ul class="submenu">
-                        <li><a href="../courses/input-courses.php">Tạo Khóa Học</a></li>
-                        <li><a href="../courses/table-courses.php">Danh Sách</a></li>
-                        <li><a href="../courses/find-courses.php">Tìm Kiếm </a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="../account_manage/account_manager.php">Quản Lý Tài Khoản</a>
-                </li>
-            </ul>
-        <?php
-            }
-        ?>
-        </aside>
-        <main>
-            <form action="">
-                <h2>Tìm Khóa học đăng có </h2>
-                <p>Họ và Tên:</p>
-                <input type="text" name="enroll_name" required>
-                <input type="submit" value="Gửi">
-        </main>
-        <?php
-        if (isset($_GET["enroll_name"])) {
-            require '../connect.php';
-            mysqli_set_charset($conn, 'UTF8');
-            $enroll_name = $_GET['enroll_name'];
+    if (isset($_GET["enroll_name"])) {
+        require '../connect.php';
+        mysqli_set_charset($conn, 'UTF8');
+        $enroll_name = $_GET['enroll_name'];
 
-            $sql = "SELECT enroll_id,enroll_name,enroll_email,enroll_phone,c.course_name,enroll_date
+        $sql = "SELECT enroll_id,enroll_name,enroll_email,enroll_phone,c.course_name,enroll_date
                 FROM enrolls e
                INNER JOIN  courses c On  e.course_id = c.course_id WHERE enroll_name = '$enroll_name'";
 
 
-            $result = $conn->query($sql);
+        $result = $conn->query($sql);
 
-            if ($result->num_rows > 0) {
-                echo "<div class='show-find-table'>";
-                echo "<table>
+        if ($result->num_rows > 0) {
+            echo "<div class='show-find-table'>";
+            echo "<table>
                         <p> Bảng thông tin </p>
                         <tr>
                             <th>ID</th>
@@ -250,28 +198,28 @@
                             <th>Khóa Học</th>
                             <th>Thời Gian Đăng Kí</th>
                         </tr>";
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["enroll_id"] . "</td>" .
-                        "<td>" . $row["enroll_name"] . "</td>" .
-                        "<td>" . $row["enroll_email"] . "</td>" .
-                        "<td>" . $row["enroll_phone"] . "</td>" .
-                        "<td>" . $row["course_name"] . "</td>" .
-                        "<td>" . $row["enroll_date"] . "</td>";
-                    echo "</tr>";
-                }
-                echo "</table>";
-                echo "</div>";
-            } else {
-                echo "<p class='no-respon'>Không Tìm Thấy dữ liệu!<p>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row["enroll_id"] . "</td>" .
+                    "<td>" . $row["enroll_name"] . "</td>" .
+                    "<td>" . $row["enroll_email"] . "</td>" .
+                    "<td>" . $row["enroll_phone"] . "</td>" .
+                    "<td>" . $row["course_name"] . "</td>" .
+                    "<td>" . $row["enroll_date"] . "</td>";
+                echo "</tr>";
             }
-
-            $conn->close();
-        ?>
-        <?php
+            echo "</table>";
+            echo "</div>";
+        } else {
+            echo "<p class='no-respon'>Không Tìm Thấy dữ liệu!<p>";
         }
 
-        ?>
+        $conn->close();
+    ?>
+    <?php
+    }
+
+    ?>
 </body>
 
 </html>

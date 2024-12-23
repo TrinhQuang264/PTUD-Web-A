@@ -15,38 +15,6 @@
     href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet" />
 </head>
-<style>
-  .header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: antiquewhite;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .header .logo {
-    margin-left: 20px;
-    font-size: 30px;
-    font-weight: 900;
-    letter-spacing: 1px;
-  }
-
-  .container {
-    min-height: 70vh;
-  }
-
-  .nou {
-    position: absolute;
-    top: 425px;
-    font-size: 10px;
-    left: 620px;
-    color: red;
-  }
-</style>
 
 <body>
   <!-- Phần header -->
@@ -93,8 +61,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
   } else {
     // lưu thông tin khi check email và mk đúng
     $_SESSION['email'] = $row['email'];
-    $_SESSION['last_name'] = $row['last_name'];
-    $_SESSION['first_name'] = $row['first_name'];
+    $_SESSION['fullname'] = $row['fullname'];
     $_SESSION['role_id'] = $row['role_id'];
     header("location: index.php");
   }

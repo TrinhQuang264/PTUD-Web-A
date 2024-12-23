@@ -1,0 +1,63 @@
+body {
+  background-color: rgb(255, 244, 244);
+}
+
+.header {
+  border-bottom: 2px solid black;
+}
+
+.header .manager {
+  margin-left: 20px;
+}
+
+/*menu con */
+.main-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Các mục trong menu chính */
+main {
+  height: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+main .title {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.list_courses {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: auto;
+}
+
+.list_courses .template_course {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-left: 60px;
+  row-gap: 40px;
+  column-gap: 20px;
+}
+
+.list_courses .grid_item {
+  width: 280px;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+  background-color: white;
+}
+
+.list_courses .grid_item-price {
+  color: red;
+  font-weight: 500;
+}
+
+.list_courses p,
+h3 {
+  margin-left: 10px;
+}

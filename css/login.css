@@ -7,6 +7,13 @@
 body {
   background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
 }
+.nou {
+  position: absolute;
+  top: 425px;
+  font-size: 10px;
+  left: 620px;
+  color: red;
+}
 .header {
   position: sticky;
   top: 0;

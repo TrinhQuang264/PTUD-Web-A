@@ -7,11 +7,29 @@
 body {
   background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
 }
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: antiquewhite;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid black;
+}
+.header .logo {
+  margin-left: 20px;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 70vh;
 }
 form {
   text-align: center;
