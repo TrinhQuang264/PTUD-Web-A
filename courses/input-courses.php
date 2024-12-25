@@ -85,7 +85,9 @@
     </header>
     <!-- Tạo Khóa học -->
     <div class="container">
+        <a href="../fields/input-fiels.php">Thêm Lĩnh Vực</a>
         <form action="" method="post">
+            <h2>Tạo Khóa học</h2>
             <label for="course_id">Mã Khóa Học:</label><br>
             <input type="text" name="course_id" id="course_id" required><br>
 
@@ -98,24 +100,23 @@
             <label for="sub_title">Tiêu đề phụ:</label><br>
             <input type="text" name="sub_title" id="sub_title" required><br>
 
-            <label for="difficulty_id">Phân loại:</label><br>
-            <select name="difficulty_id" id="difficulty_id" required>
+            <label for="fields">Lĩnh Vực:</label><br>
+            <select name="field_id" id="fields">
                 <?php
                 require '../connect.php';
-                $sql = "SELECT * FROM difficult";
+                $sql = "SELECT * FROM fields";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     for ($i = 0; $i < $result->num_rows; $i++) {
                         $row = $result->fetch_assoc();
-                        $difficulty_id = $row["difficulty_id"];
-                        $difficulty_name = $row["difficulty_name"];
-                        echo "<option value='$difficulty_id'>" . $row["difficulty_name"] . "</option>";
+                        $field_id = $row["field_id"];
+                        $field_name = $row["field_name"];
+                        echo "<option value='$field_id' selected>" . $row["field_name"] . "</option>";
                     }
                 }
                 $conn->close();
                 ?>
             </select><br>
-
             <label for="lesson_count">Số bài học:</label><br>
             <input type="number" name="lesson_count" id="lesson_count" required><br>
 
@@ -146,12 +147,15 @@
 
 </html>
 <?php
-if (isset($_POST["course_id"]) && isset($_POST["course_img"]) && isset($_POST["course_name"]) && isset($_POST["difficulty_id"]) && isset($_POST["lesson_count"])  && isset($_POST["duration"])  && isset($_POST["fee"])) {
+if (
+    isset($_POST["course_id"]) && isset($_POST["course_img"]) && isset($_POST["course_name"]) && isset($_POST["field_id"]) && isset($_POST["lesson_count"])  && isset($_POST["duration"])
+    && isset($_POST["target_learn"]) && isset($_POST["benefit"]) && isset($_POST["description"]) && isset($_POST["fee"])
+) {
     require '../connect.php';
     // table courses
     $course_id = $_POST["course_id"];
     $course_name = $_POST["course_name"];
-    $difficulty_id = $_POST["difficulty_id"];
+    $field_id = $_POST["field_id"];
     $lesson_count = $_POST["lesson_count"];
     $duration = $_POST["duration"];
     $fee = $_POST["fee"];
@@ -169,8 +173,8 @@ if (isset($_POST["course_id"]) && isset($_POST["course_img"]) && isset($_POST["c
         // Nếu đã tồn tại
         echo "<script>alert('Bạn đã tạo khóa học này rồi!');</script>";
     } else {
-        $sql1 = "INSERT INTO courses(course_id,course_name,difficulty_id,lesson_count,duration,fee,course_img)
-            VALUE ('$course_id','$course_name','$difficulty_id','$lesson_count','$duration','$fee','$course_img')";
+        $sql1 = "INSERT INTO courses(course_id,course_name,field_id,lesson_count,duration,fee,course_img)
+            VALUE ('$course_id','$course_name','$field_id','$lesson_count','$duration','$fee','$course_img')";
 
 
         $sql2 = "INSERT INTO detail_courses(course_id,sub_title,benefit,target_learn,description)

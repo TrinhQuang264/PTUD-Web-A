@@ -2,25 +2,177 @@
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 main {
   height: auto;
 }
-span {
-  color: white;
+
+ul {
+  list-style: none;
 }
+li {
+  font-size: 16px;
+}
+/* ============== body Title content =============== ==========*/
 .title__section {
-  background-color: rgb(64, 67, 70);
-  height: 300px;
+  background-color: rgb(243, 246, 249);
+  height: 250px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 .title__box {
-  border: 1px solid white;
   width: 1150px;
   height: 300px;
 }
 .title__content {
+  width: 760px;
+  height: 300px;
+}
+.title__content .main__title {
+  font-size: 30px;
+  padding-top: 70px;
+}
+.title__content .sub__title {
+  font-size: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/* ============== body main content =========================*/
+
+.main__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.main__box {
+  width: 1150px;
+  height: auto;
+}
+.main__content {
+  width: 760px;
+}
+/* Đối tượng học*/
+.target_learn__box--title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.main__content .target_learn__box {
+  border: 1px solid gray;
+  padding: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.target_learn__box--content .grid {
+  list-style: none;
   display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 7px;
+}
+/*  Những gì bạn sẽ học được */
+.benefit__box--title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.benefit__box {
+  border: 1px solid gray;
+  padding: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.benefit__box--content .grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 7px;
+}
+/* phần mô tả*/
+.description__box {
+  margin-top: 30px;
+}
+.description__box--title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.description__box--content li {
+  margin-bottom: 7px;
+}
+/* Phần ô đkí và ảnh bên cạnh phải và sẽ phải đi theo khi cuộn chuột*/
+.course_resgister__box {
+  position: relative;
+  height: auto;
+  width: 360px;
+  background-color: white;
+  top: -960px;
+  right: -770px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+  font-size: 16px;
+}
+.course_resgister__box span {
+  color: black;
+}
+.course_resgister__box img {
+  height: 200px;
+  width: 360px;
+  object-fit: cover;
+}
+.course_resgister__content {
+  padding: 24px;
+}
+.course_resgister__content .price {
+  font-size: 25px;
+  color: red;
+  font-weight: bolder;
+  margin-bottom: 15px;
+}
+.course__resgister--button input,
+.course__resgister--question button {
+  width: 312px;
+  height: 40px;
+  border: 1px solid rgb(85, 26, 139);
+  color: rgb(85, 26, 139);
+  background-color: white;
+  font-size: 15px;
+  font-weight: bolder;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.course__resgister--button input:hover,
+.course__resgister--question button:hover {
+  border: none;
+  background-color: rgb(85, 26, 139);
+  color: white;
+}
+.course__resgister--detail p {
+  margin-top: 10px;
+}
+.course__resgister--detail div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.course__resgister--detail svg {
+  margin-right: 5px;
+  vertical-align: middle;
+  transform: translateY(-2px);
+}
+/* icon bên phải dưới cùng */
+.button__backtomenu {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.button__backtomenu .bi-arrow-up-square {
+  position: absolute;
+  top: 17px;
+  left: 17px;
+  font-size: 30px;
 }

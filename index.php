@@ -25,16 +25,15 @@
       <!-- Menu -->
       <ul class="main-menu">
         <li>
-          <span>Đăng Ký</span>
+          <span>Khóa Học Của Bạn</span>
           <ul class="submenu">
-            <li><a href="./enroll/input-enrolls.php">Đăng Ký</a></li>
             <li><a href="./enroll/table-enrolls.php">Danh Sách</a></li>
             <li><a href="./enroll/find-enroll.php">Tìm Kiếm</a></li>
           </ul>
         </li>
         <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
           <li>
-            <span>Khóa học</span>
+            <span>Quản Lý Khóa học</span>
             <ul class="submenu">
               <li><a href="./courses/input-courses.php">Tạo Khóa Học</a></li>
               <li><a href="./courses/table-courses.php">Danh Sách</a></li>
@@ -85,35 +84,41 @@
     ?>
   </header>
   <!-- phần Body hiện thị tự động khóa học từ csdl courses -->
-  <main>
-    <div class="title">
-      <h2>Các Khóa Học của Chúng Tôi:</h2>
-    </div>
-    <div class="list_courses">
-      <div class="template_course">
-        <?php
-        require 'connect.php';
-        $sql = "SELECT course_id,course_name,d.difficulty_name,lesson_count,duration,fee,course_img        
-                        FROM  courses c
-                        INNER JOIN  difficult d On  c.difficulty_id = d.difficulty_id;";
+  <main class='main__container'>
+    <div class="main__box">
+      <div class="title">
+        <h2>Các Khóa Học của Chúng Tôi:</h2>
+      </div>
+      <div class="list_courses">
+        <div class="template_course">
+          <?php
+          require 'connect.php';
+          $sql = "SELECT c.*, d.*, f.field_name
+          FROM courses c
+          INNER JOIN detail_courses d ON c.course_id = d.course_id
+          INNER JOIN fields f ON c.field_id = f.field_id";
 
-        $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-          for ($i = 0; $i < $result->num_rows; $i++) {
-            $row = $result->fetch_assoc();
+          $result = $conn->query($sql);
 
-            echo "<div class='grid_item'>";
-            echo "<a href='detail_courses.php?course_id=" . $row['course_id'] . "'>";
-            echo "<img class='grid_item-img' src = '" . $row["course_img"] . "' alt = 'Ảnh Khóa Học " . $row["course_name"] . "' >";
-            echo "<h3 class='grid_item-name'>" . $row["course_name"] . " - " . $row["difficulty_name"] . "</h3>";
-            echo "<p class='grid_item-price'>" . $row["fee"] . "<span> VND</span>" . "</p>";
-            echo "<p class='grid_item-amount'> <b>Số Lượng:</b> " . $row["lesson_count"] . " Bài ~ " . trim($row["duration"]) . " Tháng" . "</p>";
-            echo "</a>";
-            echo "</div>";
+          if ($result->num_rows > 0) {
+            for ($i = 0; $i < $result->num_rows; $i++) {
+              $row = $result->fetch_assoc();
+
+              echo "<div class='grid_item'>";
+              echo "<img class='grid_item-img' src = '" . $row["course_img"] . "' alt = 'Ảnh Khóa Học " . $row["course_name"] . "' >";
+              echo "<h3 class='grid_item-name'>" . "<span class='fields'>" . $row['field_name'] . "</span>" . " " . $row["course_name"] . "</h3>";
+              echo "<p class='grid_item-price'>" . $row["fee"] . "<span> VND</span>" . "</p>";
+              echo " <a href='detail_courses.php?course_id=" . $row['course_id'] . "'>
+                      <button class='hover-button'>                   
+                        Xem chi tiết                        
+                      <button> 
+                    </a>";
+              echo "</div>";
+            }
           }
-        }
-        ?>
+          ?>
+        </div>
       </div>
     </div>
 

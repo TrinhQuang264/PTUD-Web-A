@@ -5,16 +5,17 @@ require 'connect.php';
 if (isset($_GET['course_id'])) {
   $course_id = $_GET['course_id'];
   $sql = "SELECT c.*, d.* 
-        FROM  courses c 
-        INNER JOIN  detail_courses d 
-        On  c.course_id = d.course_id 
-        WHERE c.course_id = '$course_id' ";
+          FROM  courses c 
+          INNER JOIN  detail_courses d 
+          On  c.course_id = d.course_id 
+          WHERE c.course_id = '$course_id' ";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
 ?>
 
     <head>
+      <span id='top'></span>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Đăng Kí Khóa Học <?php echo $row['course_name'] ?></title>
@@ -104,8 +105,8 @@ if (isset($_GET['course_id'])) {
         } else {
           echo "<nav class='navbar'>
                 <ul>
-                  <li><a href='../login.php'>Đăng Nhập</a></li>
-                  <li><a href='../resgister.php'>Đăng Ký</a></li>
+                  <li><a href='login.php'>Đăng Nhập</a></li>
+                  <li><a href='resgister.php'>Đăng Ký</a></li>
                 </ul>
               </nav>";
         }
@@ -117,15 +118,15 @@ if (isset($_GET['course_id'])) {
         <div class="title__section">
           <div class="title__box">
             <div class="title__content">
+              <div class="breadcrumd"></div>
               <div class="main__title">
-                <span>Khóa Học <?php echo 1; ?></span>
+                <h1><?php echo $row['course_name'] ?></h1>
               </div>
               <div class="sub__title">
-                <span>Khóa học Frontend dành cho người mới bắt đầu. Hệ thống bài tập
-                  khoa học đa dạng từ cơ bản đến nâng cao.</span>
+                <span><?php echo $row['sub_title'] ?></span>
               </div>
               <div class="student">
-                <span> Học Viên <br />1000 </span>
+                <span></span>
               </div>
             </div>
           </div>
@@ -133,10 +134,152 @@ if (isset($_GET['course_id'])) {
         <!-- Phần nội dung của body  -->
         <div class="main__container">
           <div class="main__box">
-            <div class="main__content"></div>
+            <div class="main__content">
+              <div class="target_learn__box">
+                <!-- ================ Đối tượng học ====================== -->
+                <div class="target_learn__box--title">
+                  <h2>Đối Tượng học:</h2>
+                </div>
+                <div class="target_learn__box--content">
+                  <?php
+                  // xử lý chuỗi lấy từ database ra để xử lý
+                  $array_data_raw = explode("\n", $row['target_learn']);
+                  $array_data_completed = [];
+                  foreach ($array_data_raw as $item) {
+                    $item = ltrim($item, "- ");
+                    $item = trim($item);
+                    $array_data_completed[] = "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dot' viewBox='0 0 16 16'>
+                                                <path d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3'/>
+                                              </svg> " . $item;
+                  }
+                  echo "<ul class='grid'>";
+                  foreach ($array_data_completed as $item) {
+                    echo "<li> " . $item . "</li>";
+                  }
+                  echo "</ul>";
+
+                  ?>
+                </div>
+              </div>
+              <hr>
+              <!-- ================ Những gì bạn sẽ học được ====================== -->
+              <div class="benefit__box">
+                <div class="benefit__box--title">
+                  <h2>Những gì bạn sẽ học được:</h2>
+                </div>
+                <div class="benefit__box--content">
+                  <?php
+                  // xử lý chuỗi lấy từ database ra để xử lý
+                  $array_data_raw = explode("\n", $row['benefit']);
+                  $array_data_completed = [];
+                  foreach ($array_data_raw as $item) {
+                    $item = ltrim($item, "- ");
+                    $item = trim($item);
+                    $array_data_completed[] = "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-lg' viewBox='0 0 16 16'>
+                                              <path d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z'/>
+                                            </svg> " . $item;
+                  }
+                  echo "<ul class='grid'>";
+                  foreach ($array_data_completed as $item) {
+                    echo "<li> " . $item . "</li>";
+                  }
+                  echo "</ul>";
+
+                  ?>
+                </div>
+              </div>
+              <hr>
+              <!-- ================ Mô tả khóa học ====================== -->
+              <div class="description__box">
+                <div class="description__box--title">
+                  <h2>Mô tả khóa học:</h2>
+                </div>
+                <div class="description__box--content">
+                  <?php
+                  $array_data_raw = explode("\n", $row['description']);
+                  $array_data_completed = [];
+                  foreach ($array_data_raw as $item) {
+                    $item = ltrim($item, "- ");
+                    $item = trim($item);
+                    $array_data_completed[] = " <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'>
+                                                  <path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8'/>
+                                                </svg> " . $item;
+                  }
+                  echo "<ul>";
+                  foreach ($array_data_completed as $item) {
+                    echo "<li> " . $item . "</li>";
+                  }
+                  echo "</ul>";
+
+                  ?>
+                </div>
+              </div>
+              <div class="course_resgister__box ">
+                <img src="<?php echo $row['course_img'] ?>" alt="Ảnh logo">
+                <div class="course_resgister__content">
+                  <div class="price">
+                    <?php
+                    echo $row['fee'] . " đ";
+                    ?>
+                  </div>
+                  <div class="course__resgister--button">
+                    <form action="" method="post">
+                      <input type="submit" value="Đăng ký ngay">
+                    </form>
+
+                  </div>
+                  <div class="course__resgister--question">
+                    <button>Tư Vấn</button>
+                  </div>
+                  <hr>
+                  <div class="course__resgister--detail">
+                    <p><strong>Khóa học này bao gồm:</strong></p>
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn" viewBox="0 0 16 16">
+                        <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                      </svg>
+                      <span><?php echo $row['lesson_count'] ?> bài học lý và thực hành</span>
+                    </div>
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                      </svg>
+                      <span>Thời lượng khoảng <?php echo $row['duration'] ?> tháng </span>
+                    </div>
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-infinity" viewBox="0 0 16 16">
+                        <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916z" />
+                      </svg>
+                      <span>Truy cập suốt đời và kiến thức mới nhất </span>
+                    </div>
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94" />
+                      </svg>
+                      <span>Hỗ Trợ 1 - 1 giảng dạy </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        </div>
+        </div>
+        </div>
       </main>
+      <div class="button__backtomenu">
+        <a href="#top">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z" />
+          </svg>
+        </a>
+
+      </div>
+
     </body>
 
 </html>
