@@ -61,3 +61,8 @@ main .title {
 h3 {
   margin-left: 10px;
 }
+img {
+  width: 270px;
+  height: 150px;
+  object-fit: cover;
+}

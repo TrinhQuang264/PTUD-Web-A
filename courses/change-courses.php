@@ -19,8 +19,6 @@
         session_start();
 
         if (isset($_SESSION['email'])) { ?>
-
-
             <!-- Menu -->
             <ul class="main-menu">
                 <li>

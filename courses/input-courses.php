@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm Khóa Học</title>
     <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../index.css">
 </head>
 
 <body>
@@ -84,55 +83,85 @@
         }
         ?>
     </header>
-    <form action="">
-        <p>Mã Khóa Học:</p>
-        <input type="text" name="course_id" required>
-        <p>Tên Khóa Học:</p>
-        <input type="text" name="course_name" required>
-        <p>Phân Loại:</p>
-        <select name="difficulty_id">
-            <?php
-            require '../connect.php';
-            $sql = "SELECT * FROM difficult";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                for ($i = 0; $i < $result->num_rows; $i++) {
-                    $row = $result->fetch_assoc();
-                    $difficulty_id = $row["difficulty_id"];
-                    $difficulty_name = $row["difficulty_name"];
-                    echo "<option value='$difficulty_id'>" . $row["difficulty_name"] . "</option>";
-                }
-            }
-            $conn->close();
-            ?>
-        </select>
-        <p>Số Bài Học:</p>
-        <input type="number" name="lesson_count" required>
-        <p>Thời Gian Học:</p>
-        <input type="text" name="duration" id="" required>
-        <p>Học Phí:</p>
-        <input type="text" name="fee" required>
-        <p>Ngày Bắt Đầu:</p>
-        <input type="text" name="start_date" required>
-        <input type="submit" value="Gửi">
-        </select>
-    </form>
-    <?php
+    <!-- Tạo Khóa học -->
+    <div class="container">
+        <form action="" method="post">
+            <label for="course_id">Mã Khóa Học:</label><br>
+            <input type="text" name="course_id" id="course_id" required><br>
 
-    ?>
+            <label for="courses_img">Ảnh Khóa Học:</label><br>
+            <input type="url" name="course_img" id="course_img" required><br>
+
+            <label for="course_name">Tên Khóa Học:</label><br>
+            <input type="text" name="course_name" id="course_name" required><br>
+
+            <label for="sub_title">Tiêu đề phụ:</label><br>
+            <input type="text" name="sub_title" id="sub_title" required><br>
+
+            <label for="difficulty_id">Phân loại:</label><br>
+            <select name="difficulty_id" id="difficulty_id" required>
+                <?php
+                require '../connect.php';
+                $sql = "SELECT * FROM difficult";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        $row = $result->fetch_assoc();
+                        $difficulty_id = $row["difficulty_id"];
+                        $difficulty_name = $row["difficulty_name"];
+                        echo "<option value='$difficulty_id'>" . $row["difficulty_name"] . "</option>";
+                    }
+                }
+                $conn->close();
+                ?>
+            </select><br>
+
+            <label for="lesson_count">Số bài học:</label><br>
+            <input type="number" name="lesson_count" id="lesson_count" required><br>
+
+            <label for="duration">Thời gian học:</label><br>
+            <input type="text" name="duration" id="duration" required><br>
+
+            <label for="fee">Học Phí:</label><br>
+            <input type="text" name="fee" id="fee" required><br>
+
+            <p>
+                Mô tả khóa học:
+            </p>
+
+            <label for="target_learn">Đối tượng học:</label><br>
+            <textarea name="target_learn" id="target_learn" required></textarea><br>
+
+            <label for="benefit">Những gì bạn sẽ học được:</label><br>
+            <textarea name="benefit" id="benefit" required></textarea><br>
+
+            <label for="description">Mô tả khóa học:</label><br>
+            <textarea name="description" id="description" required></textarea><br>
+
+            <input type="submit" value="Tạo khóa học">
+            </select>
+        </form>
+    </div>
 </body>
 
 </html>
 <?php
-if (isset($_GET["course_id"]) && isset($_GET["course_name"]) && isset($_GET["difficulty_id"]) && isset($_GET["lesson_count"])  && isset($_GET["duration"])  && isset($_GET["fee"])  && isset($_GET["start_date"])) {
+if (isset($_POST["course_id"]) && isset($_POST["course_img"]) && isset($_POST["course_name"]) && isset($_POST["difficulty_id"]) && isset($_POST["lesson_count"])  && isset($_POST["duration"])  && isset($_POST["fee"])) {
     require '../connect.php';
-    $course_id = $_GET["course_id"];
-    $course_name = $_GET["course_name"];
-    $difficulty_id = $_GET["difficulty_id"];
-    $lesson_count = $_GET["lesson_count"];
-    $duration = $_GET["duration"];
-    $fee = $_GET["fee"];
-    $start_date = $_GET["start_date"];
+    // table courses
+    $course_id = $_POST["course_id"];
+    $course_name = $_POST["course_name"];
+    $difficulty_id = $_POST["difficulty_id"];
+    $lesson_count = $_POST["lesson_count"];
+    $duration = $_POST["duration"];
+    $fee = $_POST["fee"];
+    $course_img = $_POST["course_img"];
+
+    //table detail_courses
+    $sub_title = $_POST['sub_title'];
+    $benefit = $_POST['benefit'];
+    $target_learn = $_POST['target_learn'];
+    $description = $_POST['description'];
 
     $check_sql = "SELECT * FROM courses WHERE course_id = '$course_id' AND course_name = '$course_name'";
     $check_result = $conn->query($check_sql);
@@ -140,14 +169,18 @@ if (isset($_GET["course_id"]) && isset($_GET["course_name"]) && isset($_GET["dif
         // Nếu đã tồn tại
         echo "<script>alert('Bạn đã tạo khóa học này rồi!');</script>";
     } else {
-        $sql = "INSERT INTO courses(course_id,course_name,difficulty_id,lesson_count,duration,fee,start_date)
-            VALUE ('$course_id','$course_name','$difficulty_id','$lesson_count','$duration','$fee','$start_date')";
+        $sql1 = "INSERT INTO courses(course_id,course_name,difficulty_id,lesson_count,duration,fee,course_img)
+            VALUE ('$course_id','$course_name','$difficulty_id','$lesson_count','$duration','$fee','$course_img')";
 
+
+        $sql2 = "INSERT INTO detail_courses(course_id,sub_title,benefit,target_learn,description)
+            VALUE ('$course_id','$sub_title','$benefit','$target_learn','$description') ";
         //check xem đã nhập thông tin và ok hay chưa
-        if ($conn->query($sql) === True) {
+        if ($conn->query($sql1) === True && $conn->query($sql2) === True) {
             echo "<script>alert('Tạo khóa học thành công!');</script>";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error form table courses: " . $sql1 . "<br>" . $conn->error;
+            echo "Error from table courses: " . $sql2 . "<br>" . $conn->error;
         }
         $conn->close();
     }

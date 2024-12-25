@@ -9,20 +9,16 @@
   font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
   text-decoration: none;
 }
-body {
-  background-color: rgb(255, 244, 244);
-}
 .header {
   position: relative;
   top: 0;
   left: 0;
   right: 0;
-  background-color: antiquewhite;
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid gray;
   z-index: 1;
 }
 .header .logo {
@@ -30,6 +26,9 @@ body {
   font-size: 30px;
   font-weight: 900;
   letter-spacing: 1px;
+}
+.logo a {
+  color: var(--colorHeader);
 }
 .header .manager {
   margin-left: 20px;

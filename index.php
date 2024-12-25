@@ -93,7 +93,7 @@
       <div class="template_course">
         <?php
         require 'connect.php';
-        $sql = "SELECT course_id,course_name,d.difficulty_name,lesson_count,duration,fee, start_date         
+        $sql = "SELECT course_id,course_name,d.difficulty_name,lesson_count,duration,fee,course_img        
                         FROM  courses c
                         INNER JOIN  difficult d On  c.difficulty_id = d.difficulty_id;";
 
@@ -102,11 +102,14 @@
         if ($result->num_rows > 0) {
           for ($i = 0; $i < $result->num_rows; $i++) {
             $row = $result->fetch_assoc();
+
             echo "<div class='grid_item'>";
+            echo "<a href='detail_courses.php?course_id=" . $row['course_id'] . "'>";
+            echo "<img class='grid_item-img' src = '" . $row["course_img"] . "' alt = 'Ảnh Khóa Học " . $row["course_name"] . "' >";
             echo "<h3 class='grid_item-name'>" . $row["course_name"] . " - " . $row["difficulty_name"] . "</h3>";
             echo "<p class='grid_item-price'>" . $row["fee"] . "<span> VND</span>" . "</p>";
             echo "<p class='grid_item-amount'> <b>Số Lượng:</b> " . $row["lesson_count"] . " Bài ~ " . trim($row["duration"]) . " Tháng" . "</p>";
-            echo "<p class='grid_item-date'><b>Ngày Bắt Đầu Học: </b>" . $row["start_date"] . "</p>";
+            echo "</a>";
             echo "</div>";
           }
         }
