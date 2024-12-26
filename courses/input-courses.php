@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm Khóa Học</title>
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/courses.css">
 </head>
 
 <body>
@@ -85,7 +86,7 @@
     </header>
     <!-- Tạo Khóa học -->
     <div class="container">
-        <a href="../fields/input-fiels.php">Thêm Lĩnh Vực</a>
+        <a href="../fields/input-fields.php">Thêm Lĩnh Vực</a>
         <form action="" method="post">
             <h2>Tạo Khóa học</h2>
             <label for="course_id">Mã Khóa Học:</label><br>

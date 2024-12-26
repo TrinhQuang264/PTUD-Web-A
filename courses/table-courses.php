@@ -96,19 +96,15 @@
                     <tr>
                         <th>ID</th>
                         <th>Tên Khóa Học</th>
-                        <th>Phân Loại</th>
-                        <th>Bài Học</th>
-                        <th>Thời Gian Học</th>
-                        <th>Học Phí</th>
-                        <th>Bắt Đầu Học</th>
+                        <th>Lĩnh Vực</th>
                     </tr>
                     <?php
                     require '../connect.php';
                     mysqli_set_charset($conn, 'UTF8');
 
-                    $sql = "SELECT course_id,course_name,d.difficulty_name,lesson_count,duration,fee, start_date         
+                    $sql = "SELECT course_id,course_name,d.field_id     
                         FROM  courses c
-                        INNER JOIN  difficult d On  c.difficulty_id = d.difficulty_id;";
+                        INNER JOIN  fields d On  c.field_id = d.field_id;";
 
                     $result = $conn->query($sql);
 
@@ -120,11 +116,7 @@
                             echo "<tr style='background-color: $bgColor;'>";
                             echo "<td>" . $row["course_id"] . "</td>";
                             echo "<td>" . $row["course_name"] . "</td>";
-                            echo "<td>" . $row["difficulty_name"] . "</td>";
-                            echo "<td>" . $row["lesson_count"] . "</td>";
-                            echo "<td>" . $row["duration"] . "</td>";
-                            echo "<td>" . $row["fee"] . "</td>";
-                            echo "<td>" . $row["start_date"] . "</td>";
+                            echo "<td>" . $row["field_id"] . "</td>";
 
                             // icon của phần tính năng
                             // tính năng xóa 

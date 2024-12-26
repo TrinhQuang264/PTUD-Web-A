@@ -84,62 +84,102 @@
     <?php
     $course_id = $_GET["course_id"];
     require '../connect.php';
-    $sql = "SELECT * FROM courses WHERE course_id='$course_id'";
+    $sql = "SELECT c.*, d.* 
+    FROM  courses c 
+    INNER JOIN  detail_courses d 
+    On  c.course_id = d.course_id ";
 
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     ?>
-    <form action="" method="get">
-        <p>Mã Khóa Học:</p>
-        <input type="text" name="course_id" value="<?php echo $course_id; ?> " readonly>
-        <p>Tên Khóa Học:</p>
-        <input type="text" name="course_name" value="<?php echo $row["course_name"]; ?>">
-        <p>Phân loại</p>
-        <select name="difficulty_id" value="<?php echo $row["difficulty_id"]; ?>">
-            <?php
-            require '../connect.php';
-            $sql = "SELECT * FROM difficult";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                for ($i = 0; $i < $result->num_rows; $i++) {
-                    $row_d = $result->fetch_assoc();
-                    $difficulty_id = $row_d["difficulty_id"];
-                    $difficulty_name = $row_d["difficulty_name"];
-                    echo "<option value='$difficulty_id' selected>" . $row_d["difficulty_name"] . "</option>";
-                }
-            }
+    <div class="container">
+        <form action="" method="post">
+            <h2>Chỉnh Sửa Khóa học</h2>
+            <input type="hidden" name="course_id" value="<?php echo $course_id; ?>">
 
-            ?>
-        </select>
-        <p>Số Bài Học:</p>
-        <input type="number" name="lesson_count" value="<?php echo $row["lesson_count"]; ?>">
-        <p>Thời Gian Học:</p>
-        <input type="text" name="duration" id="" value="<?php echo $row["duration"]; ?>">
-        <p>Học Phí:</p>
-        <input type="text" name="fee" value="<?php echo $row["fee"]; ?>">
-        <p>Ngày Bắt Đầu:</p>
-        <input type="text" name="start_date" value="<?php echo $row["start_date"]; ?>">
-        <input type="submit" value="Gửi">
-    </form>
+            <label for="courses_img">Ảnh Khóa Học:</label><br>
+            <input type="url" name="course_img" id="course_img" value="<?php echo $row['course_img'] ?>" required><br>
+
+            <label for="course_name">Tên Khóa Học:</label><br>
+            <input type="text" name="course_name" id="course_name" value="<?php echo $row['course_name'] ?>" required><br>
+
+            <label for="sub_title">Tiêu đề phụ:</label><br>
+            <input type="text" name="sub_title" id="sub_title" value="<?php echo $row['sub_title'] ?>" required><br>
+
+            <label for="fields">Lĩnh Vực:</label><br>
+            <select name="field_id" id="fields" value="<?php echo $row['field_id'] ?>">
+                <?php
+                require '../connect.php';
+                $sql = "SELECT * FROM fields";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        $row_f = $result->fetch_assoc();
+                        $field_id = $row_f["field_id"];
+                        $field_name = $row_f["field_name"];
+                        echo "<option value='$field_id' selected>" . $row_f["field_name"] . "</option>";
+                    }
+                }
+                ?>
+            </select><br>
+            <label for="lesson_count">Số bài học:</label><br>
+            <input type="number" name="lesson_count" id="lesson_count" value="<?php echo $row['lesson_count'] ?>" required><br>
+
+            <label for="duration">Thời gian học:</label><br>
+            <input type="text" name="duration" id="duration" value="<?php echo $row['duration'] ?>" required><br>
+
+            <label for="fee">Học Phí:</label><br>
+            <input type="text" name="fee" id="fee" value="<?php echo $row['fee'] ?>" required><br>
+
+            <p>
+                Chi tiết về khóa học:
+            </p>
+
+            <label for="target_learn">Đối tượng học:</label><br>
+            <textarea name="target_learn" id="target_learn" required><?php echo $row['target_learn'] ?></textarea><br>
+
+            <label for="benefit">Những gì bạn sẽ học được:</label><br>
+            <textarea name="benefit" id="benefit" required><?php echo $row['benefit'] ?></textarea><br>
+
+            <label for="description">Mô tả khóa học:</label><br>
+            <textarea name="description" id="description" required><?php echo $row['description'] ?></textarea><br>
+
+            <input type="submit" value="Tạo khóa học">
+            </select>
+        </form>
+    </div>
     <h2 class="no-change">Không muốn chỉnh sửa thì ấn <a href="table-courses.php">Quay Lại</a> đây!</h2>
 </body>
 
 </html>
 <?php
-if (isset($_GET["course_id"]) && isset($_GET["course_name"]) && isset($_GET["difficulty_id"]) && isset($_GET["lesson_count"])  && isset($_GET["duration"])  && isset($_GET["fee"])  && isset($_GET["start_date"])) {
+if (
+    isset($_POST["course_id"]) && isset($_POST["course_img"]) && isset($_POST["course_name"]) && isset($_POST["field_id"]) && isset($_POST["lesson_count"])  && isset($_POST["duration"])
+    && isset($_POST["target_learn"]) && isset($_POST["benefit"]) && isset($_POST["description"]) && isset($_POST["fee"])
+) {
     require '../connect.php';
-    $course_id = $_GET["course_id"];
-    $course_name = $_GET["course_name"];
-    $difficulty_id = $_GET["difficulty_id"];
-    $lesson_count = $_GET["lesson_count"];
-    $duration = $_GET["duration"];
-    $fee = $_GET["fee"];
-    $start_date = $_GET["start_date"];
+    // table courses
+    $course_id = $_POST["course_id"];
+    $course_name = $_POST["course_name"];
+    $field_id = $_POST["field_id"];
+    $lesson_count = $_POST["lesson_count"];
+    $duration = $_POST["duration"];
+    $fee = $_POST["fee"];
+    $course_img = $_POST["course_img"];
+
+    //table detail_courses
+    $sub_title = $_POST['sub_title'];
+    $benefit = $_POST['benefit'];
+    $target_learn = $_POST['target_learn'];
+    $description = $_POST['description'];
 
     mysqli_set_charset($conn, 'UTF8');
-    $sql = "UPDATE courses SET course_name = '$course_name', difficulty_id = '$difficulty_id', lesson_count = '$lesson_count', duration = '$duration', fee = '$fee' ,start_date ='$start_date'
+    $sql1 = "UPDATE courses SET course_name = '$course_name', field_id = '$field_id', lesson_count = '$lesson_count', duration = '$duration', fee = '$fee' ,course_img ='$course_img'
             WHERE course_id = '$course_id'";
-    if ($conn->query($sql) === True) {
+
+    $sql2 = "UPDATE detail_courses SET sub_title = '$sub_title', benefit = '$benefit', target_learn = '$target_learn', description = '$description'
+            WHERE course_id = '$course_id'";
+    if ($conn->query($sql1) === True && $conn->query($sql2)) {
         echo "đã thêm thành công";
         echo "<script>alert('Bạn đã sửa thành công!');</script>";
     } else {

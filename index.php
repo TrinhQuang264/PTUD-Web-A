@@ -107,13 +107,15 @@
 
               echo "<div class='grid_item'>";
               echo "<img class='grid_item-img' src = '" . $row["course_img"] . "' alt = 'Ảnh Khóa Học " . $row["course_name"] . "' >";
-              echo "<h3 class='grid_item-name'>" . "<span class='fields'>" . $row['field_name'] . "</span>" . " " . $row["course_name"] . "</h3>";
-              echo "<p class='grid_item-price'>" . $row["fee"] . "<span> VND</span>" . "</p>";
-              echo " <a href='detail_courses.php?course_id=" . $row['course_id'] . "'>
-                      <button class='hover-button'>                   
-                        Xem chi tiết                        
-                      <button> 
-                    </a>";
+              echo "<div class='grid_item-box'>";
+              echo    "<h3 class='grid_item-name'>" . "<span class='fields'>" . $row['field_name'] . "</span>" . " " . $row["course_name"] . "</h3>";
+              echo    "<p class='grid_item-price'>" . $row["fee"] . "<span> VND</span>" . "</p>";
+              echo    "<a href='detail_courses.php?course_id=" . $row['course_id'] . "'>
+                        <button class='hover-button'>                   
+                          Xem chi tiết                        
+                        <button> 
+                      </a>";
+              echo "</div>";
               echo "</div>";
             }
           }

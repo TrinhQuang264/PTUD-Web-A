@@ -97,7 +97,7 @@ if (isset($_GET['course_id'])) {
                     fill-rule="evenodd"
                     d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
                 </svg>
-                <span class="dropdown__text"><a href="../logout.php">Đăng Xuất</a></span>
+                <span class="dropdown__text"><a href="logout.php">Đăng Xuất</a></span>
               </li>
             </ul>
           </div>
@@ -128,6 +128,9 @@ if (isset($_GET['course_id'])) {
               <div class="student">
                 <span></span>
               </div>
+            </div>
+            <div class="courses_img">
+              <img src="<?php echo $row['course_img'] ?>" alt="Ảnh logo">
             </div>
           </div>
         </div>
@@ -214,53 +217,86 @@ if (isset($_GET['course_id'])) {
                   ?>
                 </div>
               </div>
-              <div class="course_resgister__box ">
-                <img src="<?php echo $row['course_img'] ?>" alt="Ảnh logo">
-                <div class="course_resgister__content">
-                  <div class="price">
-                    <?php
-                    echo $row['fee'] . " đ";
-                    ?>
-                  </div>
-                  <div class="course__resgister--button">
-                    <form action="" method="post">
-                      <input type="submit" value="Đăng ký ngay">
-                    </form>
+            </div>
+            <div class="course_resgister__box ">
 
+              <div class="course_resgister__content">
+                <div class="price">
+                  <?php
+                  echo $row['fee'] . " đ";
+                  ?>
+                </div>
+                <div class="course__resgister--button">
+                  <form action="" method="get">
+                    <input type="hidden" name="course_id" value="<?php echo $course_id ?>">
+                    <input type="submit" name='submit' value="Đăng Ký Ngay">
+                  </form>
+                </div>
+                <?php
+                if (isset($_GET['submit'])) {
+                  require 'connect.php';
+                  if (isset($_SESSION['email']) && isset($_SESSION['fullname']) && isset($_SESSION['phone'])) {
+                    $enroll_name = $_SESSION['fullname'];
+                    $enroll_email = $_SESSION['email'];
+                    $enroll_phone = $_SESSION['phone'];
+                    $course_id = $_GET['course_id'];
+
+                    $check_sql = "SELECT * FROM enrolls WHERE enroll_email = '$enroll_email' AND course_id = '$course_id'";
+                    $check_result = $conn->query($check_sql);
+
+                    if ($check_result->num_rows > 0) {
+                      echo "<script>alert('Bạn đã đăng ký khóa học này rồi!');</script>";
+                    } else {
+                      $sql = "INSERT INTO enrolls(enroll_name, enroll_email, enroll_phone, course_id)
+                              VALUES ('$enroll_name', '$enroll_email', '$enroll_phone', '$course_id')";
+
+                      if ($conn->query($sql) === TRUE) {
+                        echo "<script>alert('Đăng ký khóa học thành công!');</script>";
+                      } else {
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                      }
+                    }
+                    $conn->close();
+                  } else {
+                    echo "<script>
+                            alert('Vui lòng đăng nhập hoặc đăng ký.');
+                            window.location.href = 'login.php';
+                          </script>";
+                  }
+                }
+                ?>
+                <div class="course__resgister--question">
+                  <button>Tư Vấn</button>
+                </div>
+                <hr>
+                <div class="course__resgister--detail">
+                  <p><strong>Khóa học này bao gồm:</strong></p>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn" viewBox="0 0 16 16">
+                      <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
+                      <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                    </svg>
+                    <span><?php echo $row['lesson_count'] ?> bài học lý và thực hành</span>
                   </div>
-                  <div class="course__resgister--question">
-                    <button>Tư Vấn</button>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                      <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                    </svg>
+                    <span>Thời lượng khoảng <?php echo $row['duration'] ?> tháng </span>
                   </div>
-                  <hr>
-                  <div class="course__resgister--detail">
-                    <p><strong>Khóa học này bao gồm:</strong></p>
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn" viewBox="0 0 16 16">
-                        <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
-                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
-                      </svg>
-                      <span><?php echo $row['lesson_count'] ?> bài học lý và thực hành</span>
-                    </div>
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
-                      </svg>
-                      <span>Thời lượng khoảng <?php echo $row['duration'] ?> tháng </span>
-                    </div>
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-infinity" viewBox="0 0 16 16">
-                        <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916z" />
-                      </svg>
-                      <span>Truy cập suốt đời và kiến thức mới nhất </span>
-                    </div>
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94" />
-                      </svg>
-                      <span>Hỗ Trợ 1 - 1 giảng dạy </span>
-                    </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-infinity" viewBox="0 0 16 16">
+                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916z" />
+                    </svg>
+                    <span>Truy cập suốt đời và kiến thức mới nhất </span>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                      <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94" />
+                    </svg>
+                    <span>Hỗ Trợ 1 - 1 giảng dạy </span>
                   </div>
                 </div>
               </div>

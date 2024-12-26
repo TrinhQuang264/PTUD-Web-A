@@ -45,6 +45,12 @@ main .title {
 .template_course:hover {
   height: 30px;
 }
+.grid_item-box {
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  height: auto;
+  row-gap: 5px;
+}
 
 .list_courses .grid_item {
   width: 280px;
@@ -56,13 +62,14 @@ main .title {
 .list_courses .grid_item-name {
   margin-top: 2px;
   margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 700;
 }
 .list_courses .grid_item-price {
   color: red;
   font-weight: bolder;
 }
 .list_courses .hover-button {
-  display: none;
   margin-left: 33px;
   width: 200px;
   height: 35px;
@@ -70,8 +77,9 @@ main .title {
   font-weight: bolder;
   background-color: white;
   border: 1px solid rgb(85, 26, 139);
+  margin-bottom: 10px;
 }
-.grid_item:hover .hover-button {
+.hover-button:hover {
   display: block;
   cursor: pointer;
   border: none;

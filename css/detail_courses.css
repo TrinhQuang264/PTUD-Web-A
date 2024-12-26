@@ -23,12 +23,13 @@ li {
   justify-content: center;
 }
 .title__box {
-  width: 1150px;
-  height: 300px;
+  display: grid;
+  grid-template-columns: 760px 360px;
+  column-gap: 30px;
 }
 .title__content {
   width: 760px;
-  height: 300px;
+  height: 250px;
 }
 .title__content .main__title {
   font-size: 30px;
@@ -47,11 +48,15 @@ li {
   justify-content: center;
 }
 .main__box {
-  width: 1150px;
-  height: auto;
+  display: grid;
+  grid-template-columns: 760px 360px;
+  column-gap: 30px;
 }
 .main__content {
   width: 760px;
+}
+.main__title h1 {
+  font-size: 32px;
 }
 /* Đối tượng học*/
 .target_learn__box--title {
@@ -91,7 +96,7 @@ li {
 }
 /* phần mô tả*/
 .description__box {
-  margin-top: 30px;
+  padding: 20px;
 }
 .description__box--title {
   margin-top: 10px;
@@ -102,22 +107,21 @@ li {
 }
 /* Phần ô đkí và ảnh bên cạnh phải và sẽ phải đi theo khi cuộn chuột*/
 .course_resgister__box {
-  position: relative;
-  height: auto;
+  height: 340px;
   width: 360px;
   background-color: white;
-  top: -960px;
-  right: -770px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
   font-size: 16px;
 }
 .course_resgister__box span {
   color: black;
 }
-.course_resgister__box img {
+img {
   height: 200px;
   width: 360px;
   object-fit: cover;
+  position: relative;
+  top: 50px;
 }
 .course_resgister__content {
   padding: 24px;
@@ -128,7 +132,7 @@ li {
   font-weight: bolder;
   margin-bottom: 15px;
 }
-.course__resgister--button input,
+.course__resgister--button input[type="submit"],
 .course__resgister--question button {
   width: 312px;
   height: 40px;
@@ -140,7 +144,7 @@ li {
   margin-bottom: 10px;
   cursor: pointer;
 }
-.course__resgister--button input:hover,
+.course__resgister--button input[type="submit"]:hover,
 .course__resgister--question button:hover {
   border: none;
   background-color: rgb(85, 26, 139);

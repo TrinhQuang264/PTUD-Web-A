@@ -48,7 +48,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
   $email = $_POST["email"];
   $password =  $_POST["password"];
 
-  $sql = "SELECT email, password, fullname,role_id FROM account Where email = '$email' ";
+  $sql = "SELECT email, password, fullname,role_id,phone FROM account Where email = '$email' ";
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();
   //check xem nhập hay chưa hay bỏ trống hoặc nhập sai
@@ -63,6 +63,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $_SESSION['email'] = $row['email'];
     $_SESSION['fullname'] = $row['fullname'];
     $_SESSION['role_id'] = $row['role_id'];
+    $_SESSION['phone'] = $row['phone'];
     header("location: index.php");
   }
 } ?>
