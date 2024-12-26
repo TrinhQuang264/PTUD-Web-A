@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = ""; // ko co pass
-$db = "testmoi";
+$db = "quanlykhoahoc";
 
 // create connect
 $conn = new mysqli($servername, $username, $password, $db);

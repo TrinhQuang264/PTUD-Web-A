@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm Lĩnh Vực</title>
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/form-resgister.css">
 </head>
 
 <body>
@@ -25,21 +26,21 @@
                 <li>
                     <span>Khóa Học Của Bạn</span>
                     <ul class="submenu">
-                        <li><a href="./enroll/table-enrolls.php">Danh Sách</a></li>
-                        <li><a href="./enroll/find-enroll.php">Tìm Kiếm</a></li>
+                        <li><a href="../enroll/table-enrolls.php">Danh Sách</a></li>
+                        <li><a href="../enroll/find-enroll.php">Tìm Kiếm</a></li>
                     </ul>
                 </li>
                 <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
                     <li>
                         <span>Quản Lý Khóa học</span>
                         <ul class="submenu">
-                            <li><a href="./courses/input-courses.php">Tạo Khóa Học</a></li>
-                            <li><a href="./courses/table-courses.php">Danh Sách</a></li>
-                            <li><a href="./courses/find-courses.php">Tìm Kiếm</a></li>
+                            <li><a href="../courses/input-courses.php">Tạo Khóa Học</a></li>
+                            <li><a href="../courses/table-courses.php">Danh Sách</a></li>
+                            <li><a href="../courses/find-courses.php">Tìm Kiếm</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                        <a href="../account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
                     </li>
                 <?php
                 }
@@ -81,15 +82,23 @@
         }
         ?>
     </header>
-    <a href="table_fields.php"> CRUD Lĩnh VỰc</a>
+
     <div class="container">
-        <form action="" method="post">
-            <label for="field_id">id:</label>
-            <input type="text" name="field_id" id="field_id">
-            <label for="field_name">Tên Lĩnh Vực:</label>
-            <input type="text" name="field_name" id="field_name">
-            <input type="submit">
-        </form>
+        <div class="box">
+            <div class="box-field">
+                <a href="table_fields.php"> Bảng Lĩnh vực</a>
+            </div>
+            <form action="" method="post">
+                <h2>Thêm Lĩnh Vực:</h2>
+                <div class="form__box--main">
+                    <label for="field_id">Mã Lĩnh Vực:</label><br>
+                    <input type="text" name="field_id" id="field_id"><br>
+                    <label for="field_name">Tên Lĩnh Vực:</label><br>
+                    <input type="text" name="field_name" id="field_name"><br>
+                </div>
+                <input type="submit" value="Thêm Lĩnh Vực">
+            </form>
+        </div>
     </div>
 </body>
 <?php

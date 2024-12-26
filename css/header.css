@@ -34,6 +34,9 @@
 .header .manager {
   margin-left: 20px;
 }
+.navbar {
+  margin-right: 130px;
+}
 .navbar ul li {
   display: inline-block;
   list-style: none;

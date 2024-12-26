@@ -13,7 +13,7 @@
     <header class="header">
         <!-- Logo -->
         <div class="logo">
-            <a href="../index.php">COURSE</a>
+            <a href="index.php">COURSE</a>
         </div>
         <?php
         session_start();
@@ -24,20 +24,19 @@
             <!-- Menu -->
             <ul class="main-menu">
                 <li>
-                    <span>Đăng Ký</span>
+                    <span>Khóa Học Của Bạn</span>
                     <ul class="submenu">
-                        <li><a href="input-enrolls.php">Đăng Ký</a></li>
-                        <li><a href="table-enrolls.php">Danh Sách</a></li>
-                        <li><a href="find-enroll.php">Tìm Kiếm</a></li>
+                        <li><a href="./enroll/table-enrolls.php">Danh Sách</a></li>
+                        <li><a href="./enroll/find-enroll.php">Tìm Kiếm</a></li>
                     </ul>
                 </li>
                 <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
                     <li>
-                        <span>Khóa học</span>
+                        <span>Quản Lý Khóa học</span>
                         <ul class="submenu">
-                            <li><a href="../courses/input-courses.php">Tạo Khóa Học</a></li>
-                            <li><a href="../courses/table-courses.php">Danh Sách</a></li>
-                            <li><a href="../courses/find-courses.php">Tìm Kiếm</a></li>
+                            <li><a href="./courses/input-courses.php">Tạo Khóa Học</a></li>
+                            <li><a href="./courses/table-courses.php">Danh Sách</a></li>
+                            <li><a href="./courses/find-courses.php">Tìm Kiếm</a></li>
                         </ul>
                     </li>
                     <li>
@@ -102,7 +101,7 @@
                 if (isset($_SESSION['email']) && $_SESSION['role_id'] == "user") {
                     $user_email = $_SESSION['email'];
 
-                    $sql = "SELECT enroll_id,enroll_name,enroll_email,enroll_phone,course_name,enroll_date
+                    $sql = "SELECT id,enroll_name,enroll_email,enroll_phone,course_name,enroll_date
                                  FROM enrolls e
                                 INNER JOIN  courses c On  e.course_id = c.course_id
                                 WHERE e.enroll_email = '$user_email'";
@@ -113,10 +112,10 @@
                         for ($i = 0; $i < $result->num_rows; $i++) {
                             $row = $result->fetch_assoc();
                             $bgColor = ($i % 2 == 0) ? 'lightgreen' : 'white';
-                            $enroll_id = $row["enroll_id"];
+                            $id = $row["id"];
                             $enroll_email = $row["enroll_email"];
                             echo "<tr style='background-color: $bgColor;'>";
-                            echo "<td>" . $row["enroll_id"] . "</td>";
+                            echo "<td>" . $row["id"] . "</td>";
                             echo "<td>" . $row["enroll_name"] . "</td>";
                             echo "<td>" . $row["enroll_email"] . "</td>";
                             echo "<td>" . $row["enroll_phone"] . "</td>";
@@ -124,7 +123,7 @@
                             echo "<td>" . $row["enroll_date"] . "</td>";
                             // icon của phần tính năng
                             // tính năng xóa 
-                            echo "<td>" . " <a href='delete-enroll.php?enroll_id=" . $enroll_id . "' title ='Xóa'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
+                            echo "<td>" . " <a href='delete-enroll.php?id=" . $id . "' title ='Xóa'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
                                                     <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0'/>
                                                 </svg>
                                             </a>";
@@ -138,7 +137,7 @@
                         }
                     }
                 } else if (isset($_SESSION['email']) && $_SESSION['role_id'] == 'admin') {
-                    $sql = "SELECT enroll_id,enroll_name,enroll_email,enroll_phone,course_name,enroll_date
+                    $sql = "SELECT id,enroll_name,enroll_email,enroll_phone,course_name,enroll_date
                                 FROM enrolls e
                                 INNER JOIN  courses c On  e.course_id = c.course_id;";
 
@@ -148,10 +147,10 @@
                         for ($i = 0; $i < $result->num_rows; $i++) {
                             $row = $result->fetch_assoc();
                             $bgColor = ($i % 2 == 0) ? 'lightgreen' : 'white';
-                            $enroll_id = $row["enroll_id"];
+                            $id = $row["id"];
                             $enroll_email = $row["enroll_email"];
                             echo "<tr style='background-color: $bgColor;'>";
-                            echo "<td>" . $row["enroll_id"] . "</td>";
+                            echo "<td>" . $row["id"] . "</td>";
                             echo "<td>" . $row["enroll_name"] . "</td>";
                             echo "<td>" . $row["enroll_email"] . "</td>";
                             echo "<td>" . $row["enroll_phone"] . "</td>";
@@ -159,7 +158,7 @@
                             echo "<td>" . $row["enroll_date"] . "</td>";
                             // icon của phần tính năng
                             // tính năng xóa 
-                            echo "<td>" . " <a href='delete-enroll.php?enroll_id=" . $enroll_id . "' title ='Xóa'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
+                            echo "<td>" . " <a href='delete-enroll.php?id=" . $id . "' title ='Xóa'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
                                                         <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0'/>
                                                     </svg>
                                                 </a>";

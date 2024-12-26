@@ -14,45 +14,34 @@
     <header class="header">
         <!-- Logo -->
         <div class="logo">
-            <a href="../index.php">COURSE</a>
+            <a href="index.php">COURSE</a>
         </div>
         <?php
         session_start();
-        if (isset($_SESSION['email']) && $_SESSION['role_id'] != 'admin') {
-        ?>
-            <div class="card--nou">
-                <div class="nou-no-admin">
-                    <h2>Không có quyền truy cập</h2>
-                    <p style="color:rgb(175, 136, 21)">Vui lòng chuyển trang vì bạn không có quyền để sử dụng chức năng này!</p></br>
-                    <button class="back-to-login-button"><a href="../index.php">Quay lại trang chủ</a></button>
-                </div>
-            </div>
-        <?php
-        }
+
         if (isset($_SESSION['email'])) { ?>
 
 
             <!-- Menu -->
             <ul class="main-menu">
                 <li>
-                    <span>Đăng Ký</span>
+                    <span>Khóa Học Của Bạn</span>
                     <ul class="submenu">
-                        <li><a href="../enroll/input-enrolls.php">Đăng Ký</a></li>
-                        <li><a href="../enroll/table-enrolls.php">Danh Sách</a></li>
-                        <li><a href="../enroll/find-enroll.php">Tìm Kiếm</a></li>
+                        <li><a href="./enroll/table-enrolls.php">Danh Sách</a></li>
+                        <li><a href="./enroll/find-enroll.php">Tìm Kiếm</a></li>
                     </ul>
                 </li>
                 <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
                     <li>
-                        <span>Khóa học</span>
+                        <span>Quản Lý Khóa học</span>
                         <ul class="submenu">
-                            <li><a href="../courses/input-courses.php">Tạo Khóa Học</a></li>
-                            <li><a href="../courses/table-courses.php">Danh Sách</a></li>
-                            <li><a href="../courses/find-courses.php">Tìm Kiếm</a></li>
+                            <li><a href="./courses/input-courses.php">Tạo Khóa Học</a></li>
+                            <li><a href="./courses/table-courses.php">Danh Sách</a></li>
+                            <li><a href="./courses/find-courses.php">Tìm Kiếm</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                        <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
                     </li>
                 <?php
                 }
@@ -77,7 +66,7 @@
                             <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
                             <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
                         </svg>
-                        <span class="dropdown__text"><a href="../logout.php">Đăng Xuất</a></span>
+                        <span class="dropdown__text"><a href="logout.php">Đăng Xuất</a></span>
                     </li>
                 </ul>
             </div>
@@ -87,8 +76,8 @@
 
             echo "<nav class='navbar'>
               <ul>
-                <li><a href='../login.php'>Đăng Nhập</a></li>
-                <li><a href='../resgister.php'>Đăng Ký</a></li>
+                <li><a href='login.php'>Đăng Nhập</a></li>
+                <li><a href='resgister.php'>Đăng Ký</a></li>
               </ul>
             </nav>";
         }
@@ -111,8 +100,8 @@
                 mysqli_set_charset($conn, 'UTF8');
 
                 $sql = "SELECT a.account_id,a.fullname,a.email,a.password,r.role_name
-                     FROM account a
-                    INNER JOIN role r On  a.role_id = r.role_id;";
+                         FROM account a
+                        INNER JOIN role r On  a.role_id = r.role_id;";
 
                 $result = $conn->query($sql);
 

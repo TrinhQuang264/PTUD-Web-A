@@ -20,7 +20,11 @@ session_start();
       <a href="index.php">COURSE</a>
     </div>
     <?php
+    session_start();
+
     if (isset($_SESSION['email'])) { ?>
+
+
       <!-- Menu -->
       <ul class="main-menu">
         <li>

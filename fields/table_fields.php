@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trang Chủ</title>
     <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../css/account_manager.css" />
 </head>
 
 <body>
@@ -24,16 +24,15 @@
             <!-- Menu -->
             <ul class="main-menu">
                 <li>
-                    <span>Đăng Ký</span>
+                    <span>Khóa Học Của Bạn</span>
                     <ul class="submenu">
-                        <li><a href="input-enrolls.php">Đăng Ký</a></li>
-                        <li><a href="table-enrolls.php">Danh Sách</a></li>
-                        <li><a href="find-enroll.php">Tìm Kiếm</a></li>
+                        <li><a href="../enroll/table-enrolls.php">Danh Sách</a></li>
+                        <li><a href="../enroll/find-enroll.php">Tìm Kiếm</a></li>
                     </ul>
                 </li>
                 <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
                     <li>
-                        <span>Khóa học</span>
+                        <span>Quản Lý Khóa học</span>
                         <ul class="submenu">
                             <li><a href="../courses/input-courses.php">Tạo Khóa Học</a></li>
                             <li><a href="../courses/table-courses.php">Danh Sách</a></li>
@@ -41,7 +40,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                        <a href="../account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
                     </li>
                 <?php
                 }
@@ -84,13 +83,15 @@
         ?>
     </header>
     <main>
-        <a href="input-fields.php">Thêm Lĩnh Vực</a>
+
         <div class="table-view">
+            <a href="input-fields.php">Thêm Lĩnh Vực</a>
             <h2>Danh Sách Lĩnh Vực</h2>
             <table>
                 <tr>
                     <th>ID</th>
                     <th>Tên</th>
+                    <th>Tính Năng:</th>
                 </tr>
                 <?php
                 require '../connect.php';

@@ -1,9 +1,9 @@
 <?php
 require '../connect.php';
-$enroll_id = $_GET["enroll_id"];
+$id = $_GET["id"];
 mysqli_set_charset($conn, 'UTF8');
 
-$sql = "DELETE FROM enrolls WHERE enroll_id ='$enroll_id' ";
+$sql = "DELETE FROM enrolls WHERE id ='$id' ";
 
 if ($conn->query($sql) === TRUE) {
     echo "da xoa thanh cong";

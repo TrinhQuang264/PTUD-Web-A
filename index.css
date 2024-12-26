@@ -47,7 +47,7 @@ main .title {
 }
 .grid_item-box {
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: auto auto auto;
   height: auto;
   row-gap: 5px;
 }
@@ -64,6 +64,7 @@ main .title {
   margin-bottom: 5px;
   font-size: 18px;
   font-weight: 700;
+  height: 70px;
 }
 .list_courses .grid_item-price {
   color: red;
@@ -105,4 +106,7 @@ img {
   padding-bottom: 1px;
   padding-left: 5px;
   padding-right: 5px;
+}
+.grid_item-sub {
+  text-align: justify;
 }

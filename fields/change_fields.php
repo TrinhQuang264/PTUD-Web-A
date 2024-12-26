@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Kí Khóa Học</title>
     <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../css/form-resgister.css">
+
 </head>
 
 <body>
@@ -24,16 +25,15 @@
             <!-- Menu -->
             <ul class="main-menu">
                 <li>
-                    <span>Đăng Ký</span>
+                    <span>Khóa Học Của Bạn</span>
                     <ul class="submenu">
-                        <li><a href="input-enrolls.php">Đăng Ký</a></li>
-                        <li><a href="table-enrolls.php">Danh Sách</a></li>
-                        <li><a href="find-enroll.php">Tìm Kiếm</a></li>
+                        <li><a href="../enroll/table-enrolls.php">Danh Sách</a></li>
+                        <li><a href="../enroll/find-enroll.php">Tìm Kiếm</a></li>
                     </ul>
                 </li>
                 <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
                     <li>
-                        <span>Khóa học</span>
+                        <span>Quản Lý Khóa học</span>
                         <ul class="submenu">
                             <li><a href="../courses/input-courses.php">Tạo Khóa Học</a></li>
                             <li><a href="../courses/table-courses.php">Danh Sách</a></li>
@@ -41,7 +41,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                        <a href="../account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
                     </li>
                 <?php
                 }
@@ -83,6 +83,7 @@
         }
         ?>
     </header>
+
     <?php
     $field_id = $_GET["field_id"];
     require '../connect.php';
@@ -92,34 +93,51 @@
     $row = $result->fetch_assoc();
     ?>
     <div class="container">
-        <form action="" method="post">
-            <label for="field_id">Mã Lĩnh Vực:</label>
-            <input type="text" name="field_id" id="field_id" value="<?php echo $field_id ?>">
-            <label for="field_name">Tên Lĩnh Vực:</label>
-            <input type="text" name="field_name" id="field_name" value="<?php echo $row['field_name'] ?>">
-            <input type="submit">
-        </form>
+        <div class="box">
+            <form action="" method="post">
+                <h2>Sửa Lĩnh Vực:</h2>
+                <div class="form__box--main">
+                    <label for="field_id">Mã Lĩnh Vực:</label><br>
+                    <input type="text" name="field_id" id="field_id" value="<?php echo $row['field_id'] ?>"><br>
+                    <label for="field_name">Tên Lĩnh Vực:</label><br>
+                    <input type="text" name="field_name" id="field_name" value="<?php echo $row['field_name'] ?>"><br>
+                    <input type="hidden" name="original_field_id" value="<?php echo $row['field_id'] ?>">
+                </div>
+                <input type="submit" value="Sửa Thông Tin">
+                <h3 class="no-change">Không muốn chỉnh sửa thì ấn <a href="table_fields.php">Quay Lại</a> đây!</h3>
+            </form>
+
+        </div>
     </div>
-    <h2 class="no-change">Không muốn chỉnh sửa thì ấn <a href="table_fields.php">Quay Lại</a> đây!</h2>
+
 </body>
 
 </html>
 <?php
-if (isset($_POST["field_id"]) && isset($_POST["field_name"])) {
+
+if (isset($_POST["field_id"]) && isset($_POST["field_name"]) && isset($_POST["original_field_id"])) {
     require '../connect.php';
+
     $field_id = $_POST["field_id"];
     $field_name = $_POST["field_name"];
-
+    $original_field_id = $_POST["original_field_id"];
     mysqli_set_charset($conn, 'UTF8');
-    $sql = "UPDATE fields SET field_id = '$field_id', field_name = '$field_name'
-            WHERE field_id = '$field_id'";
-    if ($conn->query($sql) === True) {
-        echo "đã thêm thành công";
+
+
+    $sql = "UPDATE fields 
+            SET field_id = '$field_id', field_name = '$field_name' 
+            WHERE field_id = '$original_field_id'";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Đã sửa thông tin thành công!";
         echo "<script>alert('Bạn đã sửa thông tin thành công');</script>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
+
     $conn->close();
 }
+
+
 
 ?>
