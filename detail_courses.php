@@ -31,10 +31,8 @@ if (isset($_GET['course_id'])) {
         </div>
         <?php
         session_start();
-
-        if (isset($_SESSION['email'])) { ?>
-
-
+        if (isset($_SESSION['email'])) {
+        ?>
           <!-- Menu -->
           <ul class="main-menu">
             <li>
@@ -54,7 +52,11 @@ if (isset($_GET['course_id'])) {
                 </ul>
               </li>
               <li>
-                <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                <span>Quản Lý Tài Khoản</span>
+                <ul class="submenu">
+                  <li><a href="./account_manage/account_manager.php">Danh Sách</a></li>
+                  <li><a href="./account_manage/find_account.php">Tìm Kiếm</a></li>
+                </ul>
               </li>
             <?php
             }
@@ -217,38 +219,49 @@ if (isset($_GET['course_id'])) {
                   </form>
                 </div>
                 <?php
+
                 if (isset($_GET['submit'])) {
                   require 'connect.php';
-                  if (isset($_SESSION['email']) && isset($_SESSION['fullname']) && isset($_SESSION['phone'])) {
-                    $enroll_name = $_SESSION['fullname'];
-                    $enroll_email = $_SESSION['email'];
-                    $enroll_phone = $_SESSION['phone'];
-                    $course_id = $_GET['course_id'];
 
-                    $check_sql = "SELECT * FROM enrolls WHERE enroll_email = '$enroll_email' AND course_id = '$course_id'";
-                    $check_result = $conn->query($check_sql);
-
-                    if ($check_result->num_rows > 0) {
-                      echo "<script>alert('Bạn đã đăng ký khóa học này rồi!');</script>";
-                    } else {
-                      $sql = "INSERT INTO enrolls(enroll_name, enroll_email, enroll_phone, course_id)
-                              VALUES ('$enroll_name', '$enroll_email', '$enroll_phone', '$course_id')";
-
-                      if ($conn->query($sql) === TRUE) {
-                        echo "<script>alert('Đăng ký khóa học thành công!');</script>";
-                      } else {
-                        echo "Error: " . $sql . "<br>" . $conn->error;
-                      }
-                    }
-                    $conn->close();
-                  } else {
+                  if (!isset($_SESSION['email'])) {
                     echo "<script>
-                            alert('Vui lòng đăng nhập hoặc đăng ký.');
-                            window.location.href = 'login.php';
-                          </script>";
+                           alert('Vui lòng đăng nhập hoặc đăng ký.');
+                           window.location.href = 'login.php';
+                         </script>";
+                    exit;
                   }
+
+                  $enroll_name = $_SESSION['fullname'];
+                  $enroll_email = $_SESSION['email'];
+
+                  $get_phone = "SELECT * FROM account WHERE email='$enroll_email'";
+                  $result_get_phone = $conn->query($get_phone);
+
+
+
+                  $check_sql = "SELECT * FROM enrolls WHERE enroll_email = '$enroll_email' AND course_id = '$course_id'";
+                  $check_result = $conn->query($check_sql);
+                  if ($result_get_phone->num_rows > 0) {
+                    $row_phone = $result_get_phone->fetch_assoc();
+                    $phone_number = $row_phone['phone'];
+                  }
+
+                  if ($check_result->num_rows > 0) {
+                    echo "<script>alert('Bạn đã đăng ký khóa học này rồi!');</script>";
+                  } else {
+                    $sql = "INSERT INTO enrolls(enroll_name, enroll_email, enroll_phone, course_id)
+                           VALUES ('$enroll_name', '$enroll_email', '$phone_number', '$course_id')";
+
+                    if ($conn->query($sql) === TRUE) {
+                      echo "<script>alert('Đăng ký khóa học thành công!');</script>";
+                    } else {
+                      echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                  }
+                  $conn->close();
                 }
                 ?>
+
                 <div class="course__resgister--question">
                   <button>Tư Vấn</button>
                 </div>

@@ -128,3 +128,28 @@ img {
 #table_cousre {
   border: 1px solid red;
 }
+.template_course--enroll {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+}
+th,
+td {
+  padding: 5px;
+}
+table,
+td,
+th {
+  border: 3px solid black;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #00c9ff;
+}
+
+td,
+th {
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+}

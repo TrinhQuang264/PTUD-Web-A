@@ -35,14 +35,13 @@
 
             if (isset($_SESSION['email'])) { ?>
 
-
                 <!-- Menu -->
                 <ul class="main-menu">
                     <li>
                         <span>Khóa Học Của Bạn</span>
                         <ul class="submenu">
-                            <li><a href="./enroll/table-enrolls.php">Danh Sách</a></li>
-                            <li><a href="./enroll/find-enroll.php">Tìm Kiếm</a></li>
+                            <li><a href="../enroll/table-enrolls.php">Danh Sách</a></li>
+                            <li><a href="../enroll/find-enroll.php">Tìm Kiếm</a></li>
                         </ul>
                     </li>
                     <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
@@ -55,7 +54,11 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                            <span>Quản Lý Tài Khoản</span>
+                            <ul class="submenu">
+                                <li><a href="../account_manage/account_manager.php">Danh Sách</a></li>
+                                <li><a href="../account_manage/find_account.php">Tìm Kiếm</a></li>
+                            </ul>
                         </li>
                     <?php
                     }

@@ -20,7 +20,7 @@ session_start();
       <a href="index.php">COURSE</a>
     </div>
     <?php
-    session_start();
+
 
     if (isset($_SESSION['email'])) { ?>
 
@@ -44,7 +44,11 @@ session_start();
             </ul>
           </li>
           <li>
-            <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+            <span>Quản Lý Tài Khoản</span>
+            <ul class="submenu">
+              <li><a href="./account_manage/account_manager.php">Danh Sách</a></li>
+              <li><a href="./account_manage/find_account.php">Tìm Kiếm</a></li>
+            </ul>
           </li>
         <?php
         }
@@ -104,11 +108,11 @@ session_start();
         <form action="" method="post">
           <div class="fullname">
             <label for="fullname">Họ và Tên:</label>
-            <input type="text" name="fullname" id="fullname" value="<?php echo $row_info['fullname'] ?>" />
+            <input type="text" name="fullname" id="fullname" value="<?php echo $row_info['fullname'] ?>" readonly />
           </div>
           <div class="email">
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" value="<?php echo $row_info['email'] ?>" />
+            <input type="email" name="email" id="email" value="<?php echo $row_info['email'] ?>" readonly />
           </div>
           <div class="phone">
             <label for="phone">Số Điện Thoại:</label>
@@ -151,7 +155,7 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['phone']
   $fullname = $_POST['fullname'];
   $email = $_POST['email'];
   $phone = $_POST['phone'];
-
+  $email_account = $_SESSION['email'];
   mysqli_set_charset($conn, 'UTF8');
 
   if (isset($_POST['change-info-account'])) {

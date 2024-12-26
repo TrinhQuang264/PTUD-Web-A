@@ -78,7 +78,6 @@ main .title {
   font-weight: bolder;
   background-color: white;
   border: 1px solid rgb(85, 26, 139);
-  margin-bottom: 10px;
 }
 .hover-button:hover {
   display: block;

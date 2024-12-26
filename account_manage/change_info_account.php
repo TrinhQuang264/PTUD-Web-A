@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh Sửa Tài Khoản</title>
-    <link rel="stylesheet" href="../css/change_info_manager.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/form-resgister.css">
 </head>
 
 <body>
@@ -19,7 +20,6 @@
                 <a href="index.php">COURSE</a>
             </div>
             <?php
-            session_start();
 
             if (isset($_SESSION['email'])) { ?>
 
@@ -43,7 +43,11 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="./account_manage/account_manager.php"><span>Quản Lý Tài Khoản</span></a>
+                            <span>Quản Lý Tài Khoản</span>
+                            <ul class="submenu">
+                                <li><a href="account_manager.php">Danh Sách</a></li>
+                                <li><a href="find_account.php">Tìm Kiếm</a></li>
+                            </ul>
                         </li>
                     <?php
                     }
@@ -96,36 +100,41 @@
             $row = $result->fetch_assoc();
             ?>
             <div class="container">
-                <form action="" method="post">
-                    <h2>Sửa Thông Tin</h2>
-                    <p>ID</p>
-                    <input type="number" name="account_id" value="<?php echo $account_id; ?>" readonly><br>
-                    <p>Họ và Tên:</p>
-                    <input type="text" name="fullname" value="<?php echo $row["fullname"]; ?>"><br>
-                    <p>Email:</p>
-                    <input type="text" name="email" value="<?php echo $row["email"]; ?>"><br>
-                    <p>Mật Khẩu:</p>
-                    <input type="text" name="password" value="<?php echo $row["password"]; ?>"><br>
-                    <p>Quyền:</p>
-                    <select name="role_id" value="<?php echo $row["role_id"]; ?>"><br>
-                        <?php
-                        require '../connect.php';
-                        $sql = "SELECT * FROM role";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            for ($i = 0; $i < $result->num_rows; $i++) {
-                                $row = $result->fetch_assoc();
-                                $role_id = $row["role_id"];
-                                $role_name = $row["role_name"];
-                                echo "<option value='$role_id' selected>" . $row["role_name"] . "</option>";
+                <div class="box">
+                    <form action="" method="post">
+                        <h2>Sửa Thông Tin</h2>
+                        <p>ID</p>
+                        <input type="number" name="account_id" value="<?php echo $account_id; ?>" readonly><br>
+                        <p>Họ và Tên:</p>
+                        <input type="text" name="fullname" value="<?php echo $row["fullname"]; ?>"><br>
+                        <p>Email:</p>
+                        <input type="text" name="email" value="<?php echo $row["email"]; ?>"><br>
+                        <p>Mật Khẩu:</p>
+                        <input type="text" name="password" value="<?php echo $row["password"]; ?>"><br>
+                        <p>Số điện thoại:</p>
+                        <input type="text" name="phone" value="<?php echo $row["phone"]; ?>"><br>
+                        <p>Quyền:</p>
+                        <select name="role_id" value="<?php echo $row["role_id"]; ?>"><br>
+                            <?php
+                            require '../connect.php';
+                            $sql = "SELECT * FROM role";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                for ($i = 0; $i < $result->num_rows; $i++) {
+                                    $row = $result->fetch_assoc();
+                                    $role_id = $row["role_id"];
+                                    $role_name = $row["role_name"];
+                                    echo "<option value='$role_id' selected>" . $row["role_name"] . "</option>";
+                                }
                             }
-                        }
-                        $conn->close();
-                        ?>
-                    </select><br>
-                    <input type="submit" value="Cập Nhật" class="submit-button"><br>
-                </form>
-                <h2 class="no-change">Không muốn chỉnh sửa thì ấn <a href="account_manager.php">Quay Lại</a> đây!</h2>
+                            $conn->close();
+                            ?>
+                        </select><br>
+                        <input type="submit" value="Cập Nhật" class="submit-button"><br>
+                        <h3 class="no-change">Không muốn chỉnh sửa thì ấn <a href="account_manager.php">Quay Lại</a> đây!</h3>
+                    </form>
+                </div>
+            </div>
         </main>
     <?php
     } else {
@@ -146,15 +155,16 @@
 
 </html>
 <?php
-if (isset($_POST["account_id"]) && isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role_id"])) {
+if (isset($_POST["account_id"]) && isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role_id"]) && isset($_POST["phone"])) {
     require '../connect.php';
     $account_id = $_POST["account_id"];
     $fullname = $_POST["fullname"];
     $password = $_POST["password"];
     $email = $_POST["email"];
     $role_id = $_POST["role_id"];
+    $phone = $_POST["phone"];
     mysqli_set_charset($conn, 'UTF8');
-    $sql = "UPDATE account SET account_id = '$account_id', fullname = '$fullname', password = '$password', email = '$email', role_id = '$role_id' 
+    $sql = "UPDATE account SET account_id = '$account_id', fullname = '$fullname', password = '$password', email = '$email', role_id = '$role_id' , phone = '$phone'
             WHERE account_id= '$account_id'";
     if ($conn->query($sql) == True) {
         echo " Đã thay đổi";
