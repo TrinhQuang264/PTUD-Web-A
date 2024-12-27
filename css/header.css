@@ -190,3 +190,52 @@
 .dropdown:hover .dropdown__list {
   display: block;
 }
+.card--nou {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
+}
+
+.nou-no-admin {
+  text-align: center;
+  background-color: rgb(255, 243, 205);
+  max-width: 600px;
+  width: 90%;
+  border-radius: 7px;
+}
+
+.nou-no-admin h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: RED;
+}
+
+.nou-no-admin p {
+  margin-bottom: 0px;
+}
+
+.back-to-login-button {
+  margin-top: 0px;
+  margin-bottom: 30px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: rgb(0, 123, 255);
+  border: none;
+  border-radius: 5px;
+}
+
+.back-to-login-button:hover {
+  background-color: #0056b3;
+}
+
+.back-to-login-button a {
+  color: white;
+  text-decoration: none;
+}

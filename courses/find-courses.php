@@ -12,7 +12,7 @@
 <body>
     <?php
     session_start();
-    if (isset($_SESSION['email']) && $_SESSION['role_id'] != 'admin') {
+    if (!isset($_SESSION['email']) || $_SESSION['role_id'] != 'admin') {
     ?>
         <div class="card--nou">
             <div class="nou-no-admin">

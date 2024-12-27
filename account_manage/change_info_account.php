@@ -10,9 +10,10 @@
 </head>
 
 <body>
+
     <?php
     session_start();
-    if ($_SESSION['email'] && $_SESSION['role_id'] === 'admin') {
+    if (isset($_SESSION['email']) && $_SESSION['role_id'] === 'admin') {
     ?>
         <header class="header">
             <!-- Logo -->

@@ -12,7 +12,7 @@
 <body>
     <?php
     session_start();
-    if (isset($_SESSION['email']) && $_SESSION['role_id'] != 'admin') {
+    if (!isset($_SESSION['email']) || $_SESSION['role_id'] != 'admin') {
     ?>
         <div class="card--nou">
             <div class="nou-no-admin">
@@ -41,8 +41,8 @@
                     <li>
                         <span>Khóa Học Của Bạn</span>
                         <ul class="submenu">
-                            <li><a href="./enroll/table-enrolls.php">Danh Sách</a></li>
-                            <li><a href="./enroll/find-enroll.php">Tìm Kiếm</a></li>
+                            <li><a href="../enroll/table-enrolls.php">Danh Sách</a></li>
+                            <li><a href="../enroll/find-enroll.php">Tìm Kiếm</a></li>
                         </ul>
                     </li>
                     <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>

@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     <header class="header">
         <!-- Logo -->
         <div class="logo">
@@ -26,8 +27,8 @@
                 <li>
                     <span>Khóa Học Của Bạn</span>
                     <ul class="submenu">
-                        <li><a href="../enroll/table-enrolls.php">Danh Sách</a></li>
-                        <li><a href="../enroll/find-enroll.php">Tìm Kiếm</a></li>
+                        <li><a href="table-enrolls.php">Danh Sách</a></li>
+                        <li><a href="find-enroll.php">Tìm Kiếm</a></li>
                     </ul>
                 </li>
                 <?php if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
@@ -142,7 +143,7 @@ if (isset($_POST["enroll_name"]) && isset($_POST["enroll_email"]) && isset($_POS
     $enroll_phone = $_POST["enroll_phone"];
     $course_id = $_POST["course_id"];
 
-    $sql_check = "SELECT course_id FROM enrolls WHERE enroll_email = '$enroll_email'";
+    $sql_check = "SELECT course_id FROM enrolls WHERE enroll_email = '$enroll_email' and course_id='$course_id'";
     $result_check = $conn->query($sql_check);
 
     if ($result_check->num_rows > 0) {
