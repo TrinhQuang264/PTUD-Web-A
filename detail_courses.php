@@ -218,49 +218,6 @@ if (isset($_GET['course_id'])) {
                     <input type="submit" name='submit' value="Đăng Ký Ngay">
                   </form>
                 </div>
-                <?php
-
-                if (isset($_GET['submit'])) {
-                  require 'connect.php';
-
-                  if (!isset($_SESSION['email'])) {
-                    echo "<script>
-                           alert('Vui lòng đăng nhập hoặc đăng ký.');
-                           window.location.href = 'login.php';
-                         </script>";
-                    exit;
-                  }
-
-                  $enroll_name = $_SESSION['fullname'];
-                  $enroll_email = $_SESSION['email'];
-
-                  $get_phone = "SELECT * FROM account WHERE email='$enroll_email'";
-                  $result_get_phone = $conn->query($get_phone);
-
-
-
-                  $check_sql = "SELECT * FROM enrolls WHERE enroll_email = '$enroll_email' AND course_id = '$course_id'";
-                  $check_result = $conn->query($check_sql);
-                  if ($result_get_phone->num_rows > 0) {
-                    $row_phone = $result_get_phone->fetch_assoc();
-                    $phone_number = $row_phone['phone'];
-                  }
-
-                  if ($check_result->num_rows > 0) {
-                    echo "<script>alert('Bạn đã đăng ký khóa học này rồi!');</script>";
-                  } else {
-                    $sql = "INSERT INTO enrolls(enroll_name, enroll_email, enroll_phone, course_id)
-                           VALUES ('$enroll_name', '$enroll_email', '$phone_number', '$course_id')";
-
-                    if ($conn->query($sql) === TRUE) {
-                      echo "<script>alert('Đăng ký khóa học thành công!');</script>";
-                    } else {
-                      echo "Error: " . $sql . "<br>" . $conn->error;
-                    }
-                  }
-                  $conn->close();
-                }
-                ?>
 
                 <div class="course__resgister--question">
                   <button>Tư Vấn</button>
@@ -318,5 +275,47 @@ if (isset($_GET['course_id'])) {
 </html>
 <?php
   }
+}
+?>
+<?php
+
+if (isset($_GET['submit'])) {
+  require 'connect.php';
+
+  if (!isset($_SESSION['email'])) {
+    echo "<script>
+                           alert('Vui lòng đăng nhập hoặc đăng ký.');
+                    
+                         </script>";
+    exit;
+  }
+
+  $enroll_name = $_SESSION['fullname'];
+  $enroll_email = $_SESSION['email'];
+
+  $get_phone = "SELECT * FROM account WHERE email='$enroll_email'";
+  $result_get_phone = $conn->query($get_phone);
+  $row_phone = $result_get_phone->fetch_assoc();
+  $phone_number = $row_phone['phone'];
+  if (empty($phone_number)) {
+    echo "<script> alert('Bạn cần cập nhật số điện thoại ở trang thông tin tài khoản để được sử dụng tính năng này!');</script>";
+    exit();
+  }
+
+  $check_sql = "SELECT * FROM enrolls WHERE enroll_email = '$enroll_email' AND course_id = '$course_id'";
+  $check_result = $conn->query($check_sql);
+  if ($check_result->num_rows > 0) {
+    echo "<script>alert('Bạn đã đăng ký khóa học này rồi!');</script>";
+  } else {
+    $sql = "INSERT INTO enrolls(enroll_name, enroll_email, enroll_phone, course_id)
+                           VALUES ('$enroll_name', '$enroll_email', '$phone_number', '$course_id')";
+
+    if ($conn->query($sql) === TRUE) {
+      echo "<script>alert('Đăng ký khóa học thành công!');</script>";
+    } else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+  }
+  $conn->close();
 }
 ?>

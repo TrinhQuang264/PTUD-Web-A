@@ -87,9 +87,9 @@
         ?>
     </header>
     <?php
-    $enroll_email = $_GET["enroll_email"];
+    $id = $_GET["id"];
     require '../connect.php';
-    $sql = "SELECT * FROM enrolls WHERE enroll_email='$enroll_email'";
+    $sql = "SELECT * FROM enrolls WHERE id='$id'";
 
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
@@ -97,26 +97,28 @@
     <div class="container">
         <div class="box">
             <form action="" method="post">
-                <h2>Đăng Kí Khóa học</h2>
+                <h2>Sửa Thông Tin đăng ký Khóa học</h2>
                 <div class="form_box--main">
                     <p>Họ và Tên:</p>
                     <input type="text" name="enroll_name" value="<?php echo $row["enroll_name"]; ?>" readonly>
                     <p>Email:</p>
                     <input type="email" name="enroll_email" value="<?php echo $row["enroll_email"]; ?>" readonly>
                     <p>Số Điện Thoại: </p>
-                    <input type="text" name="enroll_phone" value="<?php echo $row["enroll_phone"]; ?>">
+                    <input type="text" name="enroll_phone" value="<?php echo $row["enroll_phone"]; ?> " readonly>
                     <p>Tên Khóa học:</p>
-                    <select name="course_id" value="<?php echo $row["course_id"]; ?>">
+                    <select name="course_id">
                         <?php
                         require '../connect.php';
                         $sql = "SELECT * FROM courses";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
-                            for ($i = 0; $i < $result->num_rows; $i++) {
-                                $row = $result->fetch_assoc();
-                                $course_id = $row["course_id"];
-                                $course_name = $row["course_name"];
-                                echo "<option value='$course_id'selected>" . $row["course_name"] . "</option>";
+                            while ($row_course = $result->fetch_assoc()) {
+                                $course_id = $row_course["course_id"];
+                                $course_name = $row_course["course_name"];
+
+
+                                $selected = ($course_id == $row["course_id"]) ? "selected" : "";
+                                echo "<option value='$course_id' $selected>$course_name</option>";
                             }
                         }
                         $conn->close();
@@ -140,16 +142,26 @@ if (isset($_POST["enroll_name"]) && isset($_POST["enroll_email"]) && isset($_POS
     $enroll_phone = $_POST["enroll_phone"];
     $course_id = $_POST["course_id"];
 
-    mysqli_set_charset($conn, 'UTF8');
-    $sql = "UPDATE enrolls SET enroll_name = '$enroll_name', enroll_email = '$enroll_email', enroll_phone = '$enroll_phone', course_id = '$course_id'
-            WHERE enroll_email = '$enroll_email'";
-    if ($conn->query($sql) === True) {
-        echo "đã thêm thành công";
-        echo "<script>alert('Bạn đã sửa thông tin thành công');</script>";
+    $sql_check = "SELECT course_id FROM enrolls WHERE enroll_email = '$enroll_email'";
+    $result_check = $conn->query($sql_check);
+
+    if ($result_check->num_rows > 0) {
+        echo "<script>alert('Bạn đã đăng ký khóa học này rồi! Nếu muốn sửa hãy chọn khóa học khác ');</script>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $regisdate = date("Y-m-d H:i:s");
+
+        mysqli_set_charset($conn, 'UTF8');
+        $sql = "UPDATE enrolls SET enroll_name = '$enroll_name', enroll_email = '$enroll_email', enroll_phone = '$enroll_phone', course_id = '$course_id',enroll_date ='$regisdate' 
+            WHERE id = '$id'";
+        if ($conn->query($sql) === True) {
+            echo "đã thêm thành công";
+            echo "<script>alert('Bạn đã sửa thông tin thành công');</script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+        $conn->close();
     }
-    $conn->close();
 }
 
 ?>

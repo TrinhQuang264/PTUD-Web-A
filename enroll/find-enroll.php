@@ -17,7 +17,7 @@
         </div>
         <?php
         session_start();
-
+        require '../connect.php';
         if (isset($_SESSION['email'])) { ?>
 
 
@@ -88,52 +88,111 @@
     </header>
     <main class="container">
         <div class="find__box">
-            <h2>Tìm Kiếm:</h2>
-            <form action="" name="find_from" method="get">
-                <label for="enroll_name" class='row'>Họ và Tên:</label><br>
-                <input type="text" name="enroll_name" id="enroll_name"><br>
+            <?php
+            if (isset($_SESSION['email']) && $_SESSION['role_id'] == "user") {
+            ?>
+                <h2>Tìm Kiếm:</h2>
+                <form action="" name="find_from" method="get">
 
-                <label for="enroll_email" class='row'>Email:</label><br>
-                <input type="text" name="enroll_email" id="enroll_email"><br>
+                    <label for="id" class='row'>ID:</label><br>
+                    <input type="text" name="id" id="id"><br>
 
-                <label for="enroll_phone" class='row'>Số Điện Thoại:</label><br>
-                <input type="text" name="enroll_phone" id="enroll_phone"><br>
+                    <label for="course_name" class='row'>Tên Khóa Học:</label><br>
+                    <input type="text" name="course_name" id="course_name"><br>
 
-                <label for="course_name" class='row'>Tên Khóa Học:</label><br>
-                <input type="text" name="course_name" id="course_name"><br>
+                    <label for="choose_fields" class='row'>Phân Loại Lĩnh Vực:</label><br>
+                    <select name="field_id" id="choose_fields">
+                        <?php
+                        require '../connect.php';
+                        $sql = "SELECT * FROM fields";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            echo "<option value=''>Tất cả</option>";
+                            for ($i = 0; $i < $result->num_rows; $i++) {
+                                $row_field = $result->fetch_assoc();
+                                $field_id = $row_field["field_id"];
+                                $field_name = $row_field["field_name"];
 
-                <input type="submit" name="submit" value="Tìm Kiếm">
-            </form>
+                                echo "<option value='$field_id' selected>" . $row_field["field_name"] . "</option>";
+                            }
+                        }
+
+                        ?>
+                    </select><br>
+
+                    <input type="submit" name="submit" value="Tìm Kiếm">
+                </form>
+            <?php
+            } else if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") { ?>
+                <h2>Tìm Kiếm:</h2>
+                <form action="" name="find_from" method="get">
+                    <label for="id" class='row'>ID:</label><br>
+                    <input type="text" name="id" id="id"><br>
+                    <label for="enroll_name" class='row'>Họ và Tên:</label><br>
+                    <input type="text" name="enroll_name" id="enroll_name"><br>
+
+                    <label for="enroll_email" class='row'>Email:</label><br>
+                    <input type="text" name="enroll_email" id="enroll_email"><br>
+
+                    <label for="enroll_phone" class='row'>Số Điện Thoại:</label><br>
+                    <input type="text" name="enroll_phone" id="enroll_phone"><br>
+
+                    <label for="course_name" class='row'>Tên Khóa Học:</label><br>
+                    <input type="text" name="course_name" id="course_name"><br>
+
+                    <label for="choose_fields" class='row'>Phân Loại Lĩnh Vực:</label><br>
+                    <select name="field_id" id="choose_fields">
+                        <?php
+                        require '../connect.php';
+                        $sql = "SELECT * FROM fields";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            echo "<option value=''>Tất cả</option>";
+                            for ($i = 0; $i < $result->num_rows; $i++) {
+                                $row_field = $result->fetch_assoc();
+                                $field_id = $row_field["field_id"];
+                                $field_name = $row_field["field_name"];
+
+                                echo "<option value='$field_id' selected>" . $row_field["field_name"] . "</option>";
+                            }
+                        }
+
+                        ?>
+                    </select><br>
+                    <input type="submit" name="submit" value="Tìm Kiếm">
+                </form>
+            <?php
+            }
+            ?>
         </div>
 
 
         <div class="result__find">
             <?php
-            require '../connect.php';
+
             if (isset($_SESSION['email']) && $_SESSION['role_id'] == "user") {
 
                 $email_account = $_SESSION['email'];
-                $sql = "SELECT c.*, e.*
+                $sql = "SELECT c.*, e.*, f.field_name
                         FROM courses c
-                        INNER JOIN enrolls e ON c.course_id = e.course_id 
+                        INNER JOIN enrolls e ON c.course_id = e.course_id
+                        INNER JOIN fields f ON c.field_id = f.field_id
                         WHERE e.enroll_email = '$email_account'";
+
 
                 if (isset($_GET['course_name']) && $_GET['course_name'] != "") {
                     $course_name = $_GET['course_name'];
                     $sql .= " AND c.course_name LIKE '%$course_name%'";
                 }
-                if (isset($_GET['enroll_name']) && $_GET['enroll_name'] != "") {
-                    $enroll_name = $_GET['enroll_name'];
-                    $sql .= " AND e.enroll_name LIKE '%$enroll_name%'";
+                if (isset($_GET['field_id']) && $_GET['field_id'] != "") {
+                    $field_id = $_GET['field_id'];
+                    $sql .= " AND c.field_id = '$field_id'";
                 }
-                if (isset($_GET['enroll_email']) && $_GET['enroll_email'] != "") {
-                    $enroll_email = $_GET['enroll_email'];
-                    $sql .= " AND e.enroll_email='$enroll_email'";
+                if (isset($_GET['id']) && $_GET['id'] != "") {
+                    $id = $_GET['id'];
+                    $sql .= " AND e.id = '$id'";
                 }
-                if (isset($_GET['enroll_phone']) && $_GET['enroll_phone'] != "") {
-                    $enroll_phone = $_GET['enroll_phone'];
-                    $sql .= " AND e.enroll_phone='$enroll_phone'";
-                }
+
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     echo "<div class='table-view'> 
@@ -141,9 +200,6 @@
                                 <table> 
                                     <tr> 
                                         <th>ID</th>
-                                        <th>Họ và Tên</th>
-                                        <th>Email</th>
-                                        <th>Số điện thoại</th>
                                         <th>Tên khóa học</th> 
                                         <th>Ngày và giờ đăng ký</th>
                                     </tr>";
@@ -152,9 +208,6 @@
                         $bgColor = ($i % 2 == 0) ? 'lightgreen' : 'white';
                         echo "<tr style='background-color: $bgColor;'>
                                 <td>" . $row["id"] . "</td> 
-                                <td>" . $row["enroll_name"] . "</td> 
-                                <td>" . $row["enroll_email"] . "</td> 
-                                <td>" . $row["enroll_phone"] . "</td>
                                 <td>" . $row["course_name"] . "</td> 
                                 <td>" . $row["enroll_date"] . "</td> 
                              </tr>";
@@ -167,14 +220,24 @@
                 $conn->close();
             } else if (isset($_SESSION['email']) && $_SESSION['role_id'] == "admin") {
 
-                $sql = "SELECT c.*, e.*
-                                FROM courses c
-                                INNER JOIN enrolls e ON c.course_id = e.course_id 
-                                WHERE 1";
+                $sql = "SELECT c.*, e.*, f.field_name
+                        FROM courses c
+                        INNER JOIN enrolls e ON c.course_id = e.course_id
+                        INNER JOIN fields f ON c.field_id = f.field_id
+                        WHERE 1";
+
 
                 if (isset($_GET['course_name']) && $_GET['course_name'] != "") {
                     $course_name = $_GET['course_name'];
                     $sql .= " AND c.course_name LIKE '%$course_name%'";
+                }
+                if (isset($_GET['field_id']) && $_GET['field_id'] != "") {
+                    $field_id = $_GET['field_id'];
+                    $sql .= " AND c.field_id = '$field_id'";
+                }
+                if (isset($_GET['id']) && $_GET['id'] != "") {
+                    $id = $_GET['id'];
+                    $sql .= " AND e.id = '$id'";
                 }
                 if (isset($_GET['enroll_name']) && $_GET['enroll_name'] != "") {
                     $enroll_name = $_GET['enroll_name'];

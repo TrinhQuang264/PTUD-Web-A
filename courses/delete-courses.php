@@ -3,7 +3,6 @@ require '../connect.php';
 $course_id = $_GET["course_id"];
 mysqli_set_charset($conn, 'UTF8');
 
-// Xóa khóa học và chi tiết khóa học sẽ được xóa tự động nhờ ON DELETE CASCADE
 $sql = "DELETE FROM courses WHERE course_id ='$course_id'";
 
 if ($conn->query($sql) === TRUE) {

@@ -117,17 +117,16 @@
                         <input type="text" name="sub_title" id="sub_title" value="<?php echo $row['sub_title'] ?>" required><br>
 
                         <label for="fields">Lĩnh Vực:</label><br>
-                        <select name="field_id" id="fields" value="<?php echo $row['field_id'] ?>">
+                        <select name="field_id" id="fields">
                             <?php
                             require '../connect.php';
                             $sql = "SELECT * FROM fields";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
-                                for ($i = 0; $i < $result->num_rows; $i++) {
-                                    $row_f = $result->fetch_assoc();
+                                while ($row_f = $result->fetch_assoc()) {
                                     $field_id = $row_f["field_id"];
                                     $field_name = $row_f["field_name"];
-                                    $selected = ($field_id == $row['field_id']) ? "selected" : "";
+                                    $selected = ($field_id == $row["field_id"]) ? "selected" : "";
                                     echo "<option value='$field_id' $selected>$field_name</option>";
                                 }
                             }

@@ -114,17 +114,19 @@
                         <p>Số điện thoại:</p>
                         <input type="text" name="phone" value="<?php echo $row["phone"]; ?>"><br>
                         <p>Quyền:</p>
-                        <select name="role_id" value="<?php echo $row["role_id"]; ?>"><br>
+                        <select name="role_id"><br>
                             <?php
                             require '../connect.php';
                             $sql = "SELECT * FROM role";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
-                                for ($i = 0; $i < $result->num_rows; $i++) {
-                                    $row = $result->fetch_assoc();
-                                    $role_id = $row["role_id"];
-                                    $role_name = $row["role_name"];
-                                    echo "<option value='$role_id' selected>" . $row["role_name"] . "</option>";
+                                while ($row_acc = $result->fetch_assoc()) {
+                                    $role_id = $row_acc["role_id"];
+                                    $role_name = $row_acc["role_name"];
+
+
+                                    $selected = ($role_id == $row["role_id"]) ? "selected" : "";
+                                    echo "<option value='$role_id' $selected>$role_name</option>";
                                 }
                             }
                             $conn->close();

@@ -20,7 +20,7 @@
   justify-content: center;
 }
 .main__box {
-  width: 1150px;
+  width: 1200px;
   height: auto;
 }
 
@@ -38,7 +38,6 @@ main .title {
 .list_courses .template_course {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  margin-left: 60px;
   row-gap: 40px;
   column-gap: 20px;
 }
@@ -47,7 +46,7 @@ main .title {
 }
 .grid_item-box {
   display: grid;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: 70px 70px auto;
   height: auto;
   row-gap: 5px;
 }

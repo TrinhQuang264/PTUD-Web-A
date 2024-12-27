@@ -158,6 +158,18 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['phone']
   $email_account = $_SESSION['email'];
   mysqli_set_charset($conn, 'UTF8');
 
+  if (strlen($phone) != 10 || substr($phone, 0, 1) != '0') {
+    echo "<script> alert('Bạn nhập số điện thoại phải đủ 10 số và phải bắt đầu bằng số 0.');</script>";
+    exit();
+  }
+  $check_phone = "SELECT * FROM account WHERE phone='$phone'";
+  $result_check_phone = $conn->query($check_phone);
+
+  if ($result_check_phone->num_rows > 0) {
+    echo "<script> alert('Số điện thoại đã tồn tại trong hệ thống. Vui lòng sử dụng số điện thoại khác.');</script>";
+    exit();
+  }
+
   if (isset($_POST['change-info-account'])) {
     $sql = "UPDATE account 
           SET fullname = '$fullname', email = '$email', phone = '$phone'
