@@ -88,7 +88,7 @@
                     </ul>
                 </div>
 
-        <?php
+            <?php
             } else {
 
                 echo "<nav class='navbar'>
@@ -98,8 +98,8 @@
               </ul>
             </nav>";
             }
-        }
-        ?>
+
+            ?>
         </header>
 
         <main class="container">
@@ -183,6 +183,9 @@
                 </div>
             </div>
         </main>
+    <?php
+    }
+    ?>
 </body>
 
 </html>

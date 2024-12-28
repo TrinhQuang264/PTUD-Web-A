@@ -89,7 +89,7 @@
                     </ul>
                 </div>
 
-        <?php
+            <?php
             } else {
 
                 echo "<nav class='navbar'>
@@ -99,8 +99,8 @@
               </ul>
             </nav>";
             }
-        }
-        ?>
+
+            ?>
         </header>
         <main>
             <div class="table-view">
@@ -159,6 +159,9 @@
                 </table>
             </div>
         </main>
+    <?php
+    }
+    ?>
 </body>
 
 </html>

@@ -13,6 +13,15 @@ session_start();
 ?>
 
 <body>
+  <?php
+  if (!isset($_SESSION['email'])) {
+    echo "<script>
+    alert(' VUi lòng đăng nhập');
+    </script>";
+    header("location: index.php");
+  }
+  exit();
+  ?>
   <!-- Thanh Header và Nav-->
   <header class="header">
     <!-- Logo -->
