@@ -54,8 +54,8 @@ input[type="submit"] {
 }
 .list_courses .template_course {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  margin-left: 60px;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-left: 10px;
   row-gap: 40px;
   column-gap: 20px;
 }

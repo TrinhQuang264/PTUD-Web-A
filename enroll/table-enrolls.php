@@ -108,7 +108,7 @@
                     $sql = "SELECT id,enroll_name,enroll_email,enroll_phone,course_name,enroll_date
                                  FROM enrolls e
                                 INNER JOIN  courses c On  e.course_id = c.course_id
-                                WHERE e.enroll_email = '$user_email'";
+                                WHERE e.enroll_email = '$user_email' ORDER BY enroll_date DESC";
 
                     $result = $conn->query($sql);
 

@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm Khóa Học</title>
+    <title>sửa Khóa Học</title>
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/form-resgister.css">
 </head>
 
 <body>
     <?php
+    session_start();
+
     if (!isset($_SESSION['email']) || $_SESSION['role_id'] != 'admin') {
     ?>
         <div class="card--nou">
@@ -30,7 +32,6 @@
                 <a href="../index.php">COURSE</a>
             </div>
             <?php
-            session_start();
 
             if (isset($_SESSION['email'])) { ?>
 
